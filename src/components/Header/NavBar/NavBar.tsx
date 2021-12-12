@@ -27,7 +27,7 @@ const NavBar = () => {
     <nav className="navbar">
       <NavLink className="logo-link" to="/">
         <h1 className="logo">
-          <span>REST</span>
+          <span>Graph</span>
           Flix
         </h1>
       </NavLink>
