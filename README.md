@@ -1,4 +1,4 @@
-## RESTFlix
+## GraphFlix
 React app that allows you to discover old and upcoming movies alike and let's you save them in your favorite movies list.
 
 The app uses the [flix-backend](https://github.com/kimkwanka/flix-backend)'s REST API and consumes it via RTK Query operations.
@@ -10,7 +10,7 @@ The app uses the [flix-backend](https://github.com/kimkwanka/flix-backend)'s RES
 - TypeScript
 
 ## Live demo
-Check out the [live demo](https://restflix.netlify.app/) to see the app in action.
+Check out the [live demo](https://graphflix.netlify.app/) to see the app in action.
 
 ## Getting started
 

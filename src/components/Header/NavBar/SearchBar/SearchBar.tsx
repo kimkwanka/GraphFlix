@@ -39,7 +39,7 @@ const SearchBar = () => {
           }
         }}
         value={searchTerm}
-        placeholder="Search RESTFlix"
+        placeholder="Search GraphFlix"
         onBlur={handleLoseFocus}
         ref={inputRef}
       />
