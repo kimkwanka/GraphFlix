@@ -1,8 +1,14 @@
 import { Link, useParams } from 'react-router-dom';
 
-import { useGetMovieByIdQuery } from '#state/slices/api';
+import { useQuery } from '@apollo/client';
 
-import { useAppSelector } from '#state/hooks';
+import {
+  GetMovieByIdQuery,
+  GetMovieByIdQueryVariables,
+  GetFavoriteMoviesQuery,
+} from '#generated/types';
+
+import { GET_MOVIE_BY_ID, GET_FAVORITE_MOVIES } from '#apollo/operations';
 
 import FavoriteButton from '#components/FavoriteButton/FavoriteButton';
 
@@ -10,12 +16,28 @@ import './MovieView.scss';
 
 const MovieView = () => {
   const { movieId } = useParams();
-  const { data: movie } = useGetMovieByIdQuery(movieId || '');
 
-  const favoriteMovies = useAppSelector(
-    (state) => state.user.data.favoriteMovies,
-  );
+  const { data: movieData } = useQuery<
+    GetMovieByIdQuery,
+    GetMovieByIdQueryVariables
+  >(GET_MOVIE_BY_ID, {
+    variables: {
+      id: movieId || '',
+    },
+  });
+
+  const { data } = useQuery<GetFavoriteMoviesQuery>(GET_FAVORITE_MOVIES);
+
+  if (!movieData) {
+    return null;
+  }
+
+  const { movie } = movieData;
+
+  const favoriteMovies = data?.auth?.user.favoriteMovies || [];
   const isFavorite = movie ? favoriteMovies.indexOf(movie?.id) !== -1 : false;
+
+  const movieImageUrl = movie?.posterUrl || movie?.backdropUrl || undefined;
 
   return (
     <div className="movie-view">
@@ -23,13 +45,13 @@ const MovieView = () => {
       <img
         className="movie-view__background-image"
         crossOrigin="anonymous"
-        src={movie?.posterUrl}
+        src={movieImageUrl}
         alt={movie?.title}
       />
       <img
         className="movie-view__image"
         crossOrigin="anonymous"
-        src={movie?.posterUrl}
+        src={movieImageUrl}
         alt={movie?.title}
       />
       <div className="movie-view__details">

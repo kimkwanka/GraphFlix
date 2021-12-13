@@ -1,6 +1,9 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { useAppSelector } from '#state/hooks';
+import { useQuery } from '@apollo/client';
+
+import { GetIsLoggedInQuery } from '#generated/types';
+import { GET_IS_LOGGED_IN } from '#apollo/operations';
 
 import LoginView from '#views/LoginView/LoginView';
 import RegistrationView from '#views/RegistrationView/RegistrationView';
@@ -15,7 +18,9 @@ interface IRoutesProps {
 }
 
 const AppRoutes = ({ silentLoginPending }: IRoutesProps) => {
-  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+  const { data } = useQuery<GetIsLoggedInQuery>(GET_IS_LOGGED_IN);
+
+  const isLoggedIn = data?.auth?.isLoggedIn || false;
 
   // When logged in, redirect '/login' and '/register' to '/' and show requested route otherwise
   if (isLoggedIn) {

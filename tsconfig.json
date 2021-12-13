@@ -21,6 +21,9 @@
     "baseUrl": "./src",
     "paths": {
       "#src/*": ["*"],
+      "#generated/*": ["_generated/*"],
+      "#apollo": ["apollo"],
+      "#apollo/*": ["apollo/*"],
       "#components/*": ["components/*"],
       "#state/*": ["state/*"],
       "#hooks": ["hooks"],

@@ -2,9 +2,11 @@ import { MouseEvent } from 'react';
 
 import { NavLink } from 'react-router-dom';
 
+import { useQuery } from '@apollo/client';
 import { useLogoutUserMutation } from '#state/slices/api';
 
-import { useAppSelector } from '#state/hooks';
+import { GetIsLoggedInQuery } from '#generated/types';
+import { GET_IS_LOGGED_IN } from '#apollo/operations';
 
 import SearchBar from './SearchBar/SearchBar';
 
@@ -13,7 +15,9 @@ import './NavBar.scss';
 const NavBar = () => {
   const [logoutUser] = useLogoutUserMutation();
 
-  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+  const { data } = useQuery<GetIsLoggedInQuery>(GET_IS_LOGGED_IN);
+
+  const isLoggedIn = data?.auth?.isLoggedIn || false;
 
   const handleLogoutClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();

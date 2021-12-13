@@ -1,34 +1,37 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useAppSelector } from '#state/hooks';
+import { useQuery } from '@apollo/client';
 
-import { TmdbMovieSimple, TmdbMovieDetailed } from '#state/types';
+import { MoviePartsFragment, GetFavoriteMoviesQuery } from '#generated/types';
 
-import './MovieModal.scss';
+import { GET_FAVORITE_MOVIES } from '#apollo/operations';
 
 import FavoriteButton from '#components/FavoriteButton/FavoriteButton';
 
+import './MovieModal.scss';
+
 interface MovieModalProps {
-  movie: TmdbMovieSimple | TmdbMovieDetailed;
+  movie: MoviePartsFragment;
 }
 
 const MovieModal = ({ movie }: MovieModalProps) => {
-  const favoriteMovies = useAppSelector(
-    (state) => state.user.data.favoriteMovies,
-  );
+  const { data } = useQuery<GetFavoriteMoviesQuery>(GET_FAVORITE_MOVIES);
 
+  const favoriteMovies = data?.auth?.user.favoriteMovies || [];
   const isFavorite = favoriteMovies.indexOf(movie.id) !== -1;
+
+  const movieImageUrl = movie.backdropUrl || movie.posterUrl;
 
   return (
     <div className="movie-modal">
       {isFavorite && <span className="movie-modal__favorite-heart" />}
       <Link className="movie-modal__wrapper-link" to={`/movies/${movie.id}`}>
-        {movie.backdropUrl || movie.posterUrl ? (
+        {movieImageUrl ? (
           <img
             className="movie-modal__img"
             crossOrigin="anonymous"
-            src={movie.backdropUrl || movie.posterUrl}
+            src={movieImageUrl}
             alt={movie.title}
           />
         ) : (

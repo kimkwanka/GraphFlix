@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 
-import {
-  useLogoutUserMutation,
-  useSilentLoginMutation,
-} from 'state/slices/api';
+import { useLogoutUserMutation } from 'state/slices/api';
+
+import { useMutation } from '@apollo/client';
+
+import { SilentRefreshMutation } from '#generated/types';
+import { SILENT_REFRESH, GET_AUTH } from '#apollo/operations';
 
 import LoadingSpinner from '#components/LoadingSpinner/LoadingSpinner';
 import Header from '#components/Header/Header';
@@ -15,15 +17,37 @@ import 'modern-css-reset';
 
 import './App.scss';
 
+import { accessTokenVar } from '#apollo';
+
+let firstRender = true;
+
 const App = () => {
-  const [silentLogin, { isUninitialized, isLoading }] =
-    useSilentLoginMutation();
+  const [silentLogin, { loading }] = useMutation<SilentRefreshMutation>(
+    SILENT_REFRESH,
+    {
+      onCompleted: (data) => {
+        accessTokenVar(data?.silentRefresh?.jwtToken || '');
+      },
+      update: (cache, { data }) => {
+        cache.writeQuery({
+          query: GET_AUTH,
+          data: {
+            auth: {
+              user: data?.silentRefresh?.user,
+              jwtToken: data?.silentRefresh?.jwtToken,
+              isLoggedIn: true,
+            },
+          },
+        });
+      },
+    },
+  );
   const [logoutUser] = useLogoutUserMutation();
 
   useEffect(() => {
     // Try logging in silently on initial page load
     silentLogin();
-
+    firstRender = false;
     // If 'logout' item is set it means another tab logged out, so we log out as well
     const syncLogout = (e: StorageEvent) => {
       if (e.key === 'logout') {
@@ -43,7 +67,7 @@ const App = () => {
       <main>
         <div className="container">
           <LoadingSpinner />
-          <Routes silentLoginPending={isUninitialized || isLoading} />
+          <Routes silentLoginPending={loading || firstRender} />
         </div>
       </main>
       <Footer />

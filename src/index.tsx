@@ -4,7 +4,10 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 
+import { ApolloProvider } from '@apollo/client';
 import store from '#state/store';
+
+import { apolloClient } from '#apollo';
 
 import App from './App';
 
@@ -17,7 +20,9 @@ if (!import.meta.env.VITE_MOVIE_API_URL) {
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      <App />
+      <ApolloProvider client={apolloClient}>
+        <App />
+      </ApolloProvider>
     </Provider>
   </BrowserRouter>,
   document.getElementById('root'),

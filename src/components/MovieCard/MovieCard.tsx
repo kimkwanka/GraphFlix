@@ -1,13 +1,13 @@
 import { memo } from 'react';
 
-import { TmdbMovieSimple, TmdbMovieDetailed } from '#state/types';
+import { MoviePartsFragment } from '#generated/types';
 
 import MovieModal from './MovieModal/MovieModal';
 
 import './MovieCard.scss';
 
 interface IMovieCardProps {
-  movie: TmdbMovieSimple | TmdbMovieDetailed;
+  movie: MoviePartsFragment;
 }
 
 const MovieCard = ({ movie }: IMovieCardProps) => {

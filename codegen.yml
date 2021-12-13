@@ -1,0 +1,8 @@
+schema: http://localhost:8080/graphql
+documents: ./src/apollo/operations.ts
+generates:
+  ./src/_generated/types.d.ts:
+    schema: ./src/apollo/client.schema.graphql
+    plugins:
+      - typescript
+      - typescript-operations
