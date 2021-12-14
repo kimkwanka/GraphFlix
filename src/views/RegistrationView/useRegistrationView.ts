@@ -1,10 +1,28 @@
 import { useState, useRef, MouseEvent } from 'react';
 
-import { useRegisterUserMutation } from '#state/slices/api';
+import { useMutation } from '@apollo/client';
+
+import {
+  RegisterUserMutation,
+  RegisterUserMutationVariables,
+} from '#generated/types';
+
+import { REGISTER_USER } from '#apollo/operations';
 
 const RegistrationView = () => {
-  const [registerUser, { error: registerError, isSuccess: isRegisterSuccess }] =
-    useRegisterUserMutation();
+  const [
+    registerUser,
+    { data: registerData, error: apolloError, reset: resetRegisterUser },
+  ] = useMutation<RegisterUserMutation, RegisterUserMutationVariables>(
+    REGISTER_USER,
+  );
+
+  const registerErrorMessage = registerData?.registerUser?.errors[0]?.message;
+  const apolloErrorMessage = apolloError?.message;
+
+  const registerError = apolloErrorMessage || registerErrorMessage || '';
+
+  const isRegisterSuccess = registerData?.registerUser?.statusCode === 201;
 
   const registerFormRef = useRef<HTMLFormElement>(null);
 
@@ -33,7 +51,8 @@ const RegistrationView = () => {
     e.preventDefault();
 
     if (isRegisterInputValid()) {
-      registerUser(newUserData);
+      resetRegisterUser();
+      registerUser({ variables: { newUserData } });
     }
   };
 

@@ -68,13 +68,13 @@ export type Mutation = {
 
 
 export type MutationAddFavoriteMovieToUserArgs = {
-  _id: Scalars['ID'];
   movieId: Scalars['ID'];
+  userId: Scalars['ID'];
 };
 
 
 export type MutationDeleteUserArgs = {
-  _id: Scalars['ID'];
+  userId: Scalars['ID'];
 };
 
 
@@ -90,14 +90,14 @@ export type MutationRegisterUserArgs = {
 
 
 export type MutationRemoveFavoriteMovieFromUserArgs = {
-  _id: Scalars['ID'];
   movieId: Scalars['ID'];
+  userId: Scalars['ID'];
 };
 
 
 export type MutationUpdateUserArgs = {
-  _id: Scalars['ID'];
   newUserData: UserInput;
+  userId: Scalars['ID'];
 };
 
 export type Query = {
@@ -241,7 +241,7 @@ export type User = {
 export type UserInput = {
   birthday?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
-  favoriteMovies: Array<InputMaybe<Scalars['String']>>;
+  favoriteMovies?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   password: Scalars['String'];
   username: Scalars['String'];
 };
@@ -270,6 +270,21 @@ export type LogoutUserMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LogoutUserMutation = { __typename?: 'Mutation', logoutUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined> } | null | undefined };
+
+export type RegisterUserMutationVariables = Exact<{
+  newUserData: UserInput;
+}>;
+
+
+export type RegisterUserMutation = { __typename?: 'Mutation', registerUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: string | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, passwordHash: string, username: string } | null | undefined } | null | undefined };
+
+export type UpdateUserMutationVariables = Exact<{
+  userId: Scalars['ID'];
+  newUserData: UserInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: string | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, passwordHash: string, username: string } | null | undefined } | null | undefined };
 
 export type MoviePartsFragment = { __typename?: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> };
 

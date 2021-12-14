@@ -19,6 +19,7 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
 export const SILENT_REFRESH = gql`
   mutation SilentRefresh {
     silentRefresh {
@@ -46,6 +47,44 @@ export const LOGOUT_USER = gql`
         message
       }
       statusCode
+    }
+  }
+`;
+
+export const REGISTER_USER = gql`
+  mutation RegisterUser($newUserData: UserInput!) {
+    registerUser(newUserData: $newUserData) {
+      errors {
+        message
+      }
+      statusCode
+      user {
+        _id
+        birthday
+        email
+        favoriteMovies
+        passwordHash
+        username
+      }
+    }
+  }
+`;
+
+export const UPDATE_USER = gql`
+  mutation UpdateUser($userId: ID!, $newUserData: UserInput!) {
+    updateUser(userId: $userId, newUserData: $newUserData) {
+      errors {
+        message
+      }
+      statusCode
+      user {
+        _id
+        birthday
+        email
+        favoriteMovies
+        passwordHash
+        username
+      }
     }
   }
 `;
