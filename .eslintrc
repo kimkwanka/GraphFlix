@@ -41,5 +41,6 @@
         "project": ["tsconfig.json"]
       }
     }
-  }
+  },
+  "ignorePatterns": ["src/_generated/*.ts"]
 }
