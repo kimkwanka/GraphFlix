@@ -22,7 +22,7 @@ const MovieView = () => {
     GetMovieByIdQueryVariables
   >(GET_MOVIE_BY_ID, {
     variables: {
-      id: movieId || '',
+      movieId: movieId || '',
     },
   });
 

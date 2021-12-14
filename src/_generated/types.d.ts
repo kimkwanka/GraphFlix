@@ -105,6 +105,7 @@ export type Query = {
   auth?: Maybe<Auth>;
   discover?: Maybe<MoviesPayload>;
   movie?: Maybe<TmdbMovieDetailed>;
+  movies?: Maybe<MoviesPayload>;
   search?: Maybe<MoviesPayload>;
   users?: Maybe<Array<Maybe<User>>>;
 };
@@ -116,7 +117,12 @@ export type QueryDiscoverArgs = {
 
 
 export type QueryMovieArgs = {
-  id: Scalars['String'];
+  movieId: Scalars['String'];
+};
+
+
+export type QueryMoviesArgs = {
+  movieIds: Array<Scalars['String']>;
 };
 
 
@@ -304,7 +310,7 @@ export type SearchMoviesQueryVariables = Exact<{
 export type SearchMoviesQuery = { __typename?: 'Query', search?: { __typename?: 'MoviesPayload', totalPages: number, totalResults: number, movies: Array<{ __typename?: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> } | null | undefined> } | null | undefined };
 
 export type GetMovieByIdQueryVariables = Exact<{
-  id: Scalars['String'];
+  movieId: Scalars['String'];
 }>;
 
 

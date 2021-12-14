@@ -130,8 +130,8 @@ export const SEARCH_MOVIES = gql`
 `;
 
 export const GET_MOVIE_BY_ID = gql`
-  query GetMovieById($id: String!) {
-    movie(id: $id) {
+  query GetMovieById($movieId: String!) {
+    movie(movieId: $movieId) {
       id
       backdropUrl
       genres {
