@@ -1,9 +1,25 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloLink,
+  InMemoryCache,
+  createHttpLink,
+  from,
+} from '@apollo/client';
+
 import { setContext } from '@apollo/client/link/context';
 
-import { accessTokenVar } from '#apollo/state';
+import { accessTokenVar, isRequestPending } from '#apollo/state';
 
 import introspectionResult from '#generated/fragment-matcher';
+
+const setPendingRequestLink = new ApolloLink((operation, forward) => {
+  isRequestPending(true);
+
+  return forward(operation).map((data) => {
+    isRequestPending(false);
+    return data;
+  });
+});
 
 const authLink = setContext((_, { headers }) => {
   return {
@@ -23,7 +39,7 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache({
     possibleTypes: introspectionResult.possibleTypes,
   }),
-  link: authLink.concat(httpLink),
+  link: from([authLink, setPendingRequestLink, httpLink]),
 });
 
 export default apolloClient;
