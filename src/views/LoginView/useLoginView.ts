@@ -29,7 +29,7 @@ const useLoginView = () => {
         data: {
           auth: {
             user: data?.loginUser?.user,
-            token: data?.loginUser?.jwtToken,
+            jwtToken: data?.loginUser?.jwtToken,
             isLoggedIn: true,
           },
         },
