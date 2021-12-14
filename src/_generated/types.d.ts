@@ -49,7 +49,7 @@ export type Error = {
 
 export type MoviesPayload = {
   __typename?: 'MoviesPayload';
-  movies: Array<Maybe<TmdbMovieSimple>>;
+  movies: Array<Maybe<TmdbMovie>>;
   totalPages: Scalars['Int'];
   totalResults: Scalars['Int'];
 };
@@ -156,22 +156,41 @@ export type TmdbGenre = {
   name: Scalars['String'];
 };
 
-export type TmdbMovieDetailed = {
+export type TmdbMovie = {
+  adult: Scalars['Boolean'];
+  backdropUrl?: Maybe<Scalars['String']>;
+  backdrop_path: Scalars['String'];
+  genres: Array<TmdbGenre>;
+  id: Scalars['ID'];
+  original_language: Scalars['Boolean'];
+  original_title: Scalars['String'];
+  overview?: Maybe<Scalars['String']>;
+  popularity: Scalars['Float'];
+  posterUrl?: Maybe<Scalars['String']>;
+  poster_path: Scalars['String'];
+  release_date: Scalars['String'];
+  title: Scalars['String'];
+  video: Scalars['Boolean'];
+  vote_average: Scalars['Float'];
+  vote_count: Scalars['Int'];
+};
+
+export type TmdbMovieDetailed = TmdbMovie & {
   __typename?: 'TMDBMovieDetailed';
   adult: Scalars['Boolean'];
   backdropUrl?: Maybe<Scalars['String']>;
-  backdrop_path?: Maybe<Scalars['String']>;
+  backdrop_path: Scalars['String'];
   budget: Scalars['Int'];
   genres: Array<TmdbGenre>;
   homepage?: Maybe<Scalars['String']>;
-  id: Scalars['String'];
+  id: Scalars['ID'];
   imdb_id?: Maybe<Scalars['String']>;
   original_language: Scalars['Boolean'];
   original_title: Scalars['String'];
   overview?: Maybe<Scalars['String']>;
   popularity: Scalars['Float'];
   posterUrl?: Maybe<Scalars['String']>;
-  poster_path?: Maybe<Scalars['String']>;
+  poster_path: Scalars['String'];
   production_companies: Array<TmdbProductionCompany>;
   production_countries: Array<TmdbProductionCountry>;
   release_date: Scalars['String'];
@@ -186,7 +205,7 @@ export type TmdbMovieDetailed = {
   vote_count: Scalars['Int'];
 };
 
-export type TmdbMovieSimple = {
+export type TmdbMovieSimple = TmdbMovie & {
   __typename?: 'TMDBMovieSimple';
   adult: Scalars['Boolean'];
   backdropUrl?: Maybe<Scalars['String']>;
@@ -292,14 +311,18 @@ export type UpdateUserMutationVariables = Exact<{
 
 export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: string | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, passwordHash: string, username: string } | null | undefined } | null | undefined };
 
-export type MoviePartsFragment = { __typename?: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> };
+type MovieParts_TmdbMovieDetailed_Fragment = { __typename?: 'TMDBMovieDetailed', id: string, backdropUrl?: string | null | undefined, overview?: string | null | undefined, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> };
+
+type MovieParts_TmdbMovieSimple_Fragment = { __typename?: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> };
+
+export type MoviePartsFragment = MovieParts_TmdbMovieDetailed_Fragment | MovieParts_TmdbMovieSimple_Fragment;
 
 export type DiscoverMoviesQueryVariables = Exact<{
   options: DiscoverOptions;
 }>;
 
 
-export type DiscoverMoviesQuery = { __typename?: 'Query', discover?: { __typename?: 'MoviesPayload', totalPages: number, movies: Array<{ __typename?: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> } | null | undefined> } | null | undefined };
+export type DiscoverMoviesQuery = { __typename?: 'Query', discover?: { __typename?: 'MoviesPayload', totalPages: number, movies: Array<{ __typename?: 'TMDBMovieDetailed', id: string, backdropUrl?: string | null | undefined, overview?: string | null | undefined, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> } | { __typename?: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> } | null | undefined> } | null | undefined };
 
 export type SearchMoviesQueryVariables = Exact<{
   query: Scalars['String'];
@@ -307,7 +330,7 @@ export type SearchMoviesQueryVariables = Exact<{
 }>;
 
 
-export type SearchMoviesQuery = { __typename?: 'Query', search?: { __typename?: 'MoviesPayload', totalPages: number, totalResults: number, movies: Array<{ __typename?: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> } | null | undefined> } | null | undefined };
+export type SearchMoviesQuery = { __typename?: 'Query', search?: { __typename?: 'MoviesPayload', totalPages: number, totalResults: number, movies: Array<{ __typename: 'TMDBMovieDetailed' } | { __typename: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> } | null | undefined> } | null | undefined };
 
 export type GetMovieByIdQueryVariables = Exact<{
   movieId: Scalars['String'];
@@ -315,6 +338,13 @@ export type GetMovieByIdQueryVariables = Exact<{
 
 
 export type GetMovieByIdQuery = { __typename?: 'Query', movie?: { __typename?: 'TMDBMovieDetailed', id: string, backdropUrl?: string | null | undefined, overview?: string | null | undefined, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> } | null | undefined };
+
+export type GetManyMoviesByIdQueryVariables = Exact<{
+  movieIds: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type GetManyMoviesByIdQuery = { __typename?: 'Query', movies?: { __typename?: 'MoviesPayload', totalPages: number, totalResults: number, movies: Array<{ __typename: 'TMDBMovieDetailed' } | { __typename: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> } | null | undefined> } | null | undefined };
 
 export type GetAuthQueryVariables = Exact<{ [key: string]: never; }>;
 

@@ -3,6 +3,8 @@ import { setContext } from '@apollo/client/link/context';
 
 import { accessTokenVar } from '#apollo/state';
 
+import introspectionResult from '#generated/fragment-matcher';
+
 const authLink = setContext((_, { headers }) => {
   return {
     headers: {
@@ -18,7 +20,9 @@ const httpLink = createHttpLink({
 });
 
 const apolloClient = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    possibleTypes: introspectionResult.possibleTypes,
+  }),
   link: authLink.concat(httpLink),
 });
 

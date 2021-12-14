@@ -1,9 +1,11 @@
 import { useQuery } from '@apollo/client';
 
 import {
+  MoviePartsFragment,
   DiscoverMoviesQuery,
   DiscoverMoviesQueryVariables,
 } from '#generated/types';
+
 import { DISCOVER_MOVIES } from '#apollo/operations';
 
 import { useQueryParams } from '#hooks';
@@ -42,14 +44,7 @@ const HomeView = () => {
         initialPage={pageAsNumber}
         totalPages={totalPages}
       />
-      <MoviesList
-        movies={
-          movies as NonNullable<
-            NonNullable<DiscoverMoviesQuery['discover']>['movies'][0]
-          >[]
-        }
-        // Works as well: movies={movies as MoviePartsFragment[]}
-      />
+      <MoviesList movies={movies as MoviePartsFragment[]} />
       <Pagination
         baseUrl="/?"
         initialPage={pageAsNumber}

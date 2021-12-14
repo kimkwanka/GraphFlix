@@ -90,7 +90,7 @@ export const UPDATE_USER = gql`
 `;
 
 const MOVIE_PARTS = gql`
-  fragment MovieParts on TMDBMovieSimple {
+  fragment MovieParts on TMDBMovie {
     id
     backdropUrl
     genres {
@@ -142,6 +142,19 @@ export const GET_MOVIE_BY_ID = gql`
       posterUrl
       title
       vote_average
+    }
+  }
+`;
+
+export const GET_MANY_MOVIES_BY_ID = gql`
+  ${MOVIE_PARTS}
+  query GetManyMoviesById($movieIds: [String!]!) {
+    movies(movieIds: $movieIds) {
+      movies {
+        ...MovieParts
+      }
+      totalPages
+      totalResults
     }
   }
 `;
