@@ -95,12 +95,8 @@ const useProfileView = () => {
   const apolloDeleteErrorMessage = apolloDeleteError?.message;
   const deleteError = deleteErrorMessage || apolloDeleteErrorMessage || '';
 
-  if (!currentUserData) {
-    return null;
-  }
-
   const userDataChanged =
-    newUserData.username !== currentUserData.username ||
+    newUserData.username !== currentUserData?.username ||
     newUserData.password !== '' ||
     newUserData.email !== currentUserData.email ||
     formatDate(newUserData.birthday || '') !==
@@ -127,7 +123,7 @@ const useProfileView = () => {
       resetUpdateUser();
       await updateUser({
         variables: {
-          userId: currentUserData._id,
+          userId: currentUserData?._id,
           newUserData,
         },
       });
@@ -145,7 +141,7 @@ const useProfileView = () => {
 
     if (deletionConfirmed) {
       const results = await deleteUser({
-        variables: { userId: currentUserData._id },
+        variables: { userId: currentUserData?._id },
       });
 
       if (results.data?.deleteUser?.statusCode === 200) {
@@ -161,7 +157,7 @@ const useProfileView = () => {
     email,
     password,
     birthday,
-    favoriteMovies: currentUserData.favoriteMovies,
+    favoriteMovies: currentUserData?.favoriteMovies || [],
     formatDate,
     handleSubmit,
     handleDelete,
