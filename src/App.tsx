@@ -29,6 +29,10 @@ const App = () => {
         accessTokenVar(data?.silentRefresh?.jwtToken || '');
       },
       update: (cache, { data }) => {
+        // Only login if we had no errors
+        if (data?.silentRefresh?.errors.length) {
+          return;
+        }
         cache.writeQuery({
           query: GET_AUTH,
           data: {
