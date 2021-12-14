@@ -1,4 +1,10 @@
-import { useSearchMoviesQuery } from '#state/slices/api';
+import { useQuery } from '@apollo/client';
+
+import {
+  SearchMoviesQuery,
+  SearchMoviesQueryVariables,
+} from '#generated/types';
+import { SEARCH_MOVIES } from '#apollo/operations';
 
 import { useQueryParams } from '#hooks';
 
@@ -13,16 +19,21 @@ const SearchView = () => {
   const pageAsNumber = parseInt(queryParams.get('page') || '1', 10);
   const searchQuery = queryParams.get('query') || '';
 
-  const { data } = useSearchMoviesQuery({
-    query: searchQuery,
-    page: pageAsNumber,
-  });
+  const { data } = useQuery<SearchMoviesQuery, SearchMoviesQueryVariables>(
+    SEARCH_MOVIES,
+    {
+      variables: {
+        query: searchQuery,
+        page: pageAsNumber,
+      },
+    },
+  );
 
-  if (!data) {
+  if (!data?.search) {
     return null;
   }
 
-  const { movies, totalPages, totalResults } = data;
+  const { movies, totalPages, totalResults } = data.search;
 
   return (
     <>
@@ -35,7 +46,14 @@ const SearchView = () => {
         initialPage={pageAsNumber}
         totalPages={totalPages}
       />
-      <MoviesList movies={movies} />
+      <MoviesList
+        movies={
+          movies as NonNullable<
+            NonNullable<SearchMoviesQuery['search']>['movies'][0]
+          >[]
+        }
+        // Works as well: movies={movies as MoviePartsFragment[]}
+      />
       <Pagination
         baseUrl={`/search?query=${searchQuery}&`}
         initialPage={pageAsNumber}

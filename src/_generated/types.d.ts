@@ -59,6 +59,7 @@ export type Mutation = {
   addFavoriteMovieToUser?: Maybe<UserPayload>;
   deleteUser?: Maybe<UserPayload>;
   loginUser?: Maybe<AuthPayload>;
+  logoutUser?: Maybe<UserPayload>;
   registerUser?: Maybe<UserPayload>;
   removeFavoriteMovieFromUser?: Maybe<UserPayload>;
   silentRefresh?: Maybe<AuthPayload>;
@@ -104,6 +105,7 @@ export type Query = {
   auth?: Maybe<Auth>;
   discover?: Maybe<MoviesPayload>;
   movie?: Maybe<TmdbMovieDetailed>;
+  search?: Maybe<MoviesPayload>;
   users?: Maybe<Array<Maybe<User>>>;
 };
 
@@ -115,6 +117,12 @@ export type QueryDiscoverArgs = {
 
 export type QueryMovieArgs = {
   id: Scalars['String'];
+};
+
+
+export type QuerySearchArgs = {
+  page?: InputMaybe<Scalars['Int']>;
+  query: Scalars['String'];
 };
 
 export type RefreshTokenData = {
@@ -266,6 +274,14 @@ export type DiscoverMoviesQueryVariables = Exact<{
 
 
 export type DiscoverMoviesQuery = { __typename?: 'Query', discover?: { __typename?: 'MoviesPayload', totalPages: number, movies: Array<{ __typename?: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> } | null | undefined> } | null | undefined };
+
+export type SearchMoviesQueryVariables = Exact<{
+  query: Scalars['String'];
+  page?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type SearchMoviesQuery = { __typename?: 'Query', search?: { __typename?: 'MoviesPayload', totalPages: number, totalResults: number, movies: Array<{ __typename?: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> } | null | undefined> } | null | undefined };
 
 export type GetMovieByIdQueryVariables = Exact<{
   id: Scalars['String'];

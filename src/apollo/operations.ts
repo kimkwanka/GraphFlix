@@ -66,6 +66,19 @@ export const DISCOVER_MOVIES = gql`
   }
 `;
 
+export const SEARCH_MOVIES = gql`
+  ${MOVIE_PARTS}
+  query SearchMovies($query: String!, $page: Int) {
+    search(query: $query, page: $page) {
+      movies {
+        ...MovieParts
+      }
+      totalPages
+      totalResults
+    }
+  }
+`;
+
 export const GET_MOVIE_BY_ID = gql`
   query GetMovieById($id: String!) {
     movie(id: $id) {
