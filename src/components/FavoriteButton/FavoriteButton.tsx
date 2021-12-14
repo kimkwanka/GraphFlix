@@ -1,11 +1,20 @@
 import { memo, MouseEvent } from 'react';
 
-import {
-  useAddMovieToFavoritesMutation,
-  useRemoveMovieFromFavoritesMutation,
-} from '#state/slices/api';
+import { useMutation, useQuery } from '@apollo/client';
 
-import { useAppSelector } from '#state/hooks';
+import {
+  GetAuthQuery,
+  AddFavoriteMovieToUserMutation,
+  AddFavoriteMovieToUserMutationVariables,
+  RemoveFavoriteMovieFromUserMutation,
+  RemoveFavoriteMovieFromUserMutationVariables,
+} from '#generated/types';
+
+import {
+  ADD_MOVIE_TO_FAVORITES,
+  GET_AUTH,
+  REMOVE_MOVIE_FROM_FAVORITES,
+} from '#apollo/operations';
 
 import './FavoriteButton.scss';
 
@@ -20,23 +29,66 @@ const FavoriteButton = ({ movieId, showText, clear }: IFavoriteButtonProps) => {
     return null;
   }
 
-  const [addMovieToFavorites] = useAddMovieToFavoritesMutation();
-  const [removeMovieFromFavorites] = useRemoveMovieFromFavoritesMutation();
+  const [addMovieToFavorites] = useMutation<
+    AddFavoriteMovieToUserMutation,
+    AddFavoriteMovieToUserMutationVariables
+  >(ADD_MOVIE_TO_FAVORITES, {
+    update: (cache, { data }) => {
+      // Only update cache if we had no errors
+      if (data?.addFavoriteMovieToUser?.errors.length) {
+        return;
+      }
+      cache.writeQuery({
+        query: GET_AUTH,
+        data: {
+          auth: {
+            user: data?.addFavoriteMovieToUser?.user,
+            isLoggedIn: true,
+          },
+        },
+      });
+    },
+  });
 
-  const currentUserData = useAppSelector((state) => state.user.data);
+  const [removeMovieFromFavorites] = useMutation<
+    RemoveFavoriteMovieFromUserMutation,
+    RemoveFavoriteMovieFromUserMutationVariables
+  >(REMOVE_MOVIE_FROM_FAVORITES, {
+    update: (cache, { data }) => {
+      // Only update cache if we had no errors
+      if (data?.removeFavoriteMovieFromUser?.errors.length) {
+        return;
+      }
+      cache.writeQuery({
+        query: GET_AUTH,
+        data: {
+          auth: {
+            user: data?.removeFavoriteMovieFromUser?.user,
+            isLoggedIn: true,
+          },
+        },
+      });
+    },
+  });
 
-  const { _id: userId, favoriteMovies } = currentUserData;
+  const { data } = useQuery<GetAuthQuery>(GET_AUTH);
+
+  if (!data?.auth?.user) {
+    return null;
+  }
+
+  const { _id: userId, favoriteMovies } = data.auth.user;
 
   const isFavorite = favoriteMovies.indexOf(movieId) !== -1;
 
   const addToFavorites = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    addMovieToFavorites({ userId, movieId });
+    addMovieToFavorites({ variables: { userId, movieId } });
   };
 
   const removeFromFavorites = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    removeMovieFromFavorites({ userId, movieId });
+    removeMovieFromFavorites({ variables: { userId, movieId } });
   };
 
   return !isFavorite ? (

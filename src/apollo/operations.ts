@@ -99,6 +99,42 @@ export const DELETE_USER = gql`
   }
 `;
 
+export const ADD_MOVIE_TO_FAVORITES = gql`
+  mutation AddFavoriteMovieToUser($userId: ID!, $movieId: ID!) {
+    addFavoriteMovieToUser(userId: $userId, movieId: $movieId) {
+      errors {
+        message
+      }
+      statusCode
+      user {
+        _id
+        birthday
+        email
+        favoriteMovies
+        username
+      }
+    }
+  }
+`;
+
+export const REMOVE_MOVIE_FROM_FAVORITES = gql`
+  mutation RemoveFavoriteMovieFromUser($userId: ID!, $movieId: ID!) {
+    removeFavoriteMovieFromUser(userId: $userId, movieId: $movieId) {
+      errors {
+        message
+      }
+      statusCode
+      user {
+        _id
+        birthday
+        email
+        favoriteMovies
+        username
+      }
+    }
+  }
+`;
+
 const MOVIE_PARTS = gql`
   fragment MovieParts on TMDBMovie {
     id

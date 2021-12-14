@@ -317,6 +317,22 @@ export type DeleteUserMutationVariables = Exact<{
 
 export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any } | null | undefined } | null | undefined };
 
+export type AddFavoriteMovieToUserMutationVariables = Exact<{
+  userId: Scalars['ID'];
+  movieId: Scalars['ID'];
+}>;
+
+
+export type AddFavoriteMovieToUserMutation = { __typename?: 'Mutation', addFavoriteMovieToUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, username: string } | null | undefined } | null | undefined };
+
+export type RemoveFavoriteMovieFromUserMutationVariables = Exact<{
+  userId: Scalars['ID'];
+  movieId: Scalars['ID'];
+}>;
+
+
+export type RemoveFavoriteMovieFromUserMutation = { __typename?: 'Mutation', removeFavoriteMovieFromUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, username: string } | null | undefined } | null | undefined };
+
 type MovieParts_TmdbMovieDetailed_Fragment = { __typename?: 'TMDBMovieDetailed', id: string, backdropUrl?: string | null | undefined, overview?: string | null | undefined, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> };
 
 type MovieParts_TmdbMovieSimple_Fragment = { __typename?: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> };
