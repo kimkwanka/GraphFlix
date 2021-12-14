@@ -17,7 +17,7 @@ import 'modern-css-reset';
 
 import './App.scss';
 
-import { accessTokenVar } from '#apollo';
+import { accessTokenVar } from '#apollo/state';
 
 let firstRender = true;
 

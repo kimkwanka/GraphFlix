@@ -9,11 +9,9 @@ import {
 
 import { LOGIN_USER, GET_AUTH } from '#apollo/operations';
 
-import { accessTokenVar } from '#apollo';
+import { accessTokenVar } from '#apollo/state';
 
 const useLoginView = () => {
-  // const [loginUser, { error: loginError }] = useLoginUserMutation();
-
   const [loginUser, { error: loginError }] = useMutation<
     LoginUserMutation,
     LoginUserMutationVariables

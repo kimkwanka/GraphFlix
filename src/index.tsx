@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { ApolloProvider } from '@apollo/client';
 import store from '#state/store';
 
-import { apolloClient } from '#apollo';
+import apolloClient from '#apollo/client';
 
 import App from './App';
 

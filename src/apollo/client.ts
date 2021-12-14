@@ -1,13 +1,7 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  createHttpLink,
-  makeVar,
-} from '@apollo/client';
-
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-export const accessTokenVar = makeVar('');
+import { accessTokenVar } from '#apollo/state';
 
 const authLink = setContext((_, { headers }) => {
   return {
@@ -28,4 +22,4 @@ const apolloClient = new ApolloClient({
   link: authLink.concat(httpLink),
 });
 
-export { apolloClient };
+export default apolloClient;
