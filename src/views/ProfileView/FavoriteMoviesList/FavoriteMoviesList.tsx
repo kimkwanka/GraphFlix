@@ -1,25 +1,40 @@
-import { useGetManyMoviesByIdQuery } from '#state/slices/api';
-import { useAppSelector } from '#state/hooks';
+import { useQuery } from '@apollo/client';
+
+import {
+  MoviePartsFragment,
+  GetFavoriteMoviesQuery,
+  GetManyMoviesByIdQuery,
+  GetManyMoviesByIdQueryVariables,
+} from '#generated/types';
+
+import { GET_MANY_MOVIES_BY_ID, GET_FAVORITE_MOVIES } from '#apollo/operations';
 
 import MovieCard from '#components/MovieCard/MovieCard';
 
 import './FavoriteMoviesList.scss';
 
 const FavoriteMoviesList = () => {
-  const favoriteMovies = useAppSelector(
-    (state) => state.user.data.favoriteMovies,
-  );
+  const { data: favoriteMoviesData } =
+    useQuery<GetFavoriteMoviesQuery>(GET_FAVORITE_MOVIES);
 
-  const { data: movies } = useGetManyMoviesByIdQuery(favoriteMovies);
+  const favoriteMovies = favoriteMoviesData?.auth?.user.favoriteMovies || [];
 
-  if (!movies) {
+  const { data: getManyMoviesByIdData } = useQuery<
+    GetManyMoviesByIdQuery,
+    GetManyMoviesByIdQueryVariables
+  >(GET_MANY_MOVIES_BY_ID, {
+    variables: { movieIds: favoriteMovies as string[] },
+  });
+
+  if (!getManyMoviesByIdData?.movies) {
     return null;
   }
+  const movies = getManyMoviesByIdData.movies.movies as MoviePartsFragment[];
 
   return (
     <div className="favorite-movies-list">
-      {movies?.map((movie) => (
-        <MovieCard key={`${movie.id}`} movie={movie} />
+      {movies.map((movie) => (
+        <MovieCard key={`${movie?.id}`} movie={movie} />
       ))}
     </div>
   );

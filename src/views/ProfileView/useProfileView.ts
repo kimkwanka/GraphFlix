@@ -1,12 +1,15 @@
 /* eslint no-restricted-globals: ["error"] */
 import { useState, useRef, MouseEvent } from 'react';
 
+import { useQuery } from '@apollo/client';
+
 import {
   useUpdateUserMutation,
   useDeleteUserMutation,
 } from '#state/slices/api';
 
-import { useAppSelector } from '#state/hooks';
+import { GetAuthQuery } from '#generated/types';
+import { GET_AUTH } from '#apollo/operations';
 
 const formatDate = (date: string) => {
   const inputDate = new Date(date);
@@ -17,7 +20,9 @@ const useProfileView = () => {
   const [updateUser, { error: updateError }] = useUpdateUserMutation();
   const [deleteUser, { error: deleteError }] = useDeleteUserMutation();
 
-  const currentUserData = useAppSelector((state) => state.user.data);
+  const { data: authData } = useQuery<GetAuthQuery>(GET_AUTH);
+
+  const currentUserData = authData?.auth?.user;
 
   const updateFormRef = useRef<HTMLFormElement>(null);
 
@@ -26,11 +31,16 @@ const useProfileView = () => {
     password: '',
   });
 
+  if (!currentUserData) {
+    return null;
+  }
+
   const userDataChanged =
     newUserData.username !== currentUserData.username ||
     newUserData.password !== '' ||
     newUserData.email !== currentUserData.email ||
-    formatDate(newUserData.birthday) !== formatDate(currentUserData.birthday);
+    formatDate(newUserData.birthday || '') !==
+      formatDate(currentUserData.birthday || '');
 
   const updateNewUserData = (key: string, value: string) => {
     setNewUserData({ ...newUserData, [key]: value });
