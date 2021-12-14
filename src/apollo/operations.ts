@@ -13,7 +13,6 @@ export const LOGIN_USER = gql`
         birthday
         email
         favoriteMovies
-        passwordHash
         username
       }
     }
@@ -33,7 +32,6 @@ export const SILENT_REFRESH = gql`
         birthday
         email
         favoriteMovies
-        passwordHash
         username
       }
     }
@@ -63,7 +61,6 @@ export const REGISTER_USER = gql`
         birthday
         email
         favoriteMovies
-        passwordHash
         username
       }
     }
@@ -82,7 +79,6 @@ export const UPDATE_USER = gql`
         birthday
         email
         favoriteMovies
-        passwordHash
         username
       }
     }
@@ -181,7 +177,6 @@ export const GET_AUTH = gql`
         birthday
         email
         favoriteMovies
-        passwordHash
         username
       }
       isLoggedIn

@@ -283,12 +283,12 @@ export type LoginUserMutationVariables = Exact<{
 }>;
 
 
-export type LoginUserMutation = { __typename?: 'Mutation', loginUser?: { __typename?: 'AuthPayload', jwtToken?: string | null | undefined, statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, passwordHash: string, username: string } | null | undefined } | null | undefined };
+export type LoginUserMutation = { __typename?: 'Mutation', loginUser?: { __typename?: 'AuthPayload', jwtToken?: string | null | undefined, statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, username: string } | null | undefined } | null | undefined };
 
 export type SilentRefreshMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SilentRefreshMutation = { __typename?: 'Mutation', silentRefresh?: { __typename?: 'AuthPayload', jwtToken?: string | null | undefined, statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, passwordHash: string, username: string } | null | undefined } | null | undefined };
+export type SilentRefreshMutation = { __typename?: 'Mutation', silentRefresh?: { __typename?: 'AuthPayload', jwtToken?: string | null | undefined, statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, username: string } | null | undefined } | null | undefined };
 
 export type LogoutUserMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -300,7 +300,7 @@ export type RegisterUserMutationVariables = Exact<{
 }>;
 
 
-export type RegisterUserMutation = { __typename?: 'Mutation', registerUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, passwordHash: string, username: string } | null | undefined } | null | undefined };
+export type RegisterUserMutation = { __typename?: 'Mutation', registerUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, username: string } | null | undefined } | null | undefined };
 
 export type UpdateUserMutationVariables = Exact<{
   userId: Scalars['ID'];
@@ -308,7 +308,7 @@ export type UpdateUserMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, passwordHash: string, username: string } | null | undefined } | null | undefined };
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, username: string } | null | undefined } | null | undefined };
 
 export type DeleteUserMutationVariables = Exact<{
   userId: Scalars['ID'];
@@ -355,7 +355,7 @@ export type GetManyMoviesByIdQuery = { __typename?: 'Query', movies?: { __typena
 export type GetAuthQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAuthQuery = { __typename?: 'Query', auth?: { __typename?: 'Auth', isLoggedIn: boolean, user: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, passwordHash: string, username: string } } | null | undefined };
+export type GetAuthQuery = { __typename?: 'Query', auth?: { __typename?: 'Auth', isLoggedIn: boolean, user: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, username: string } } | null | undefined };
 
 export type GetFavoriteMoviesQueryVariables = Exact<{ [key: string]: never; }>;
 
