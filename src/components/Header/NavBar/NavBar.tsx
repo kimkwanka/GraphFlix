@@ -2,18 +2,35 @@ import { MouseEvent } from 'react';
 
 import { NavLink } from 'react-router-dom';
 
-import { useQuery } from '@apollo/client';
-import { useLogoutUserMutation } from '#state/slices/api';
+import { useQuery, useMutation } from '@apollo/client';
 
-import { GetIsLoggedInQuery } from '#generated/types';
-import { GET_IS_LOGGED_IN } from '#apollo/operations';
+import { accessTokenVar } from '#apollo/state';
+
+import { GetIsLoggedInQuery, LogoutUserMutation } from '#generated/types';
+import { GET_IS_LOGGED_IN, LOGOUT_USER, GET_AUTH } from '#apollo/operations';
 
 import SearchBar from './SearchBar/SearchBar';
 
 import './NavBar.scss';
 
 const NavBar = () => {
-  const [logoutUser] = useLogoutUserMutation();
+  const [logoutUser] = useMutation<LogoutUserMutation>(LOGOUT_USER, {
+    onCompleted: () => {
+      accessTokenVar('');
+    },
+    update: (cache) => {
+      cache.writeQuery({
+        query: GET_AUTH,
+        data: {
+          auth: {
+            user: null,
+            jwtToken: '',
+            isLoggedIn: false,
+          },
+        },
+      });
+    },
+  });
 
   const { data } = useQuery<GetIsLoggedInQuery>(GET_IS_LOGGED_IN);
 

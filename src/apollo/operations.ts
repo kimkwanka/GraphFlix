@@ -39,6 +39,17 @@ export const SILENT_REFRESH = gql`
   }
 `;
 
+export const LOGOUT_USER = gql`
+  mutation LogoutUser {
+    logoutUser {
+      errors {
+        message
+      }
+      statusCode
+    }
+  }
+`;
+
 const MOVIE_PARTS = gql`
   fragment MovieParts on TMDBMovieSimple {
     id

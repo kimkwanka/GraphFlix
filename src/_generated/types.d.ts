@@ -266,6 +266,11 @@ export type SilentRefreshMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type SilentRefreshMutation = { __typename?: 'Mutation', silentRefresh?: { __typename?: 'AuthPayload', jwtToken?: string | null | undefined, statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: string | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, passwordHash: string, username: string } | null | undefined } | null | undefined };
 
+export type LogoutUserMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutUserMutation = { __typename?: 'Mutation', logoutUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined> } | null | undefined };
+
 export type MoviePartsFragment = { __typename?: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> };
 
 export type DiscoverMoviesQueryVariables = Exact<{
