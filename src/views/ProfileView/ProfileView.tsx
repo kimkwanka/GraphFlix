@@ -67,6 +67,8 @@ const ProfileView = () => {
             onChange={(e) => setBirthday(e.target.value)}
           />
         </label>
+        <ErrorMessages errors={[updateError]} />
+        <ErrorMessages errors={[deleteError]} />
         <div className="profile-view__button-wrapper">
           <button
             disabled={!userDataChanged}
@@ -84,16 +86,6 @@ const ProfileView = () => {
             &#10006; Delete Profile
           </button>
         </div>
-        <ErrorMessages
-          errors={
-            updateError && 'error' in updateError ? [updateError.error] : []
-          }
-        />
-        <ErrorMessages
-          errors={
-            deleteError && 'error' in deleteError ? [deleteError.error] : []
-          }
-        />
       </form>
       {favoriteMovies.length ? (
         <>

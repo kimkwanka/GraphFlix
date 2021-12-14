@@ -17,7 +17,6 @@ export type Scalars = {
 export type Auth = {
   __typename?: 'Auth';
   isLoggedIn: Scalars['Boolean'];
-  jwtToken: Scalars['String'];
   user: User;
 };
 
@@ -311,6 +310,13 @@ export type UpdateUserMutationVariables = Exact<{
 
 export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, passwordHash: string, username: string } | null | undefined } | null | undefined };
 
+export type DeleteUserMutationVariables = Exact<{
+  userId: Scalars['ID'];
+}>;
+
+
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser?: { __typename?: 'UserPayload', statusCode: number, errors: Array<{ __typename?: 'Error', message: string } | null | undefined>, user?: { __typename?: 'User', _id: any } | null | undefined } | null | undefined };
+
 type MovieParts_TmdbMovieDetailed_Fragment = { __typename?: 'TMDBMovieDetailed', id: string, backdropUrl?: string | null | undefined, overview?: string | null | undefined, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> };
 
 type MovieParts_TmdbMovieSimple_Fragment = { __typename?: 'TMDBMovieSimple', id: string, backdropUrl?: string | null | undefined, overview: string, posterUrl?: string | null | undefined, title: string, vote_average: number, genres: Array<{ __typename?: 'TMDBGenre', id: number, name: string }> };
@@ -349,7 +355,7 @@ export type GetManyMoviesByIdQuery = { __typename?: 'Query', movies?: { __typena
 export type GetAuthQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAuthQuery = { __typename?: 'Query', auth?: { __typename?: 'Auth', jwtToken: string, isLoggedIn: boolean, user: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, passwordHash: string, username: string } } | null | undefined };
+export type GetAuthQuery = { __typename?: 'Query', auth?: { __typename?: 'Auth', isLoggedIn: boolean, user: { __typename?: 'User', _id: any, birthday?: any | null | undefined, email: string, favoriteMovies: Array<string | null | undefined>, passwordHash: string, username: string } } | null | undefined };
 
 export type GetFavoriteMoviesQueryVariables = Exact<{ [key: string]: never; }>;
 

@@ -89,6 +89,20 @@ export const UPDATE_USER = gql`
   }
 `;
 
+export const DELETE_USER = gql`
+  mutation DeleteUser($userId: ID!) {
+    deleteUser(userId: $userId) {
+      errors {
+        message
+      }
+      statusCode
+      user {
+        _id
+      }
+    }
+  }
+`;
+
 const MOVIE_PARTS = gql`
   fragment MovieParts on TMDBMovie {
     id
@@ -170,7 +184,6 @@ export const GET_AUTH = gql`
         passwordHash
         username
       }
-      jwtToken
       isLoggedIn
     }
   }

@@ -1,6 +1,5 @@
 type Auth {
   user: User!
-  jwtToken: String!
   isLoggedIn: Boolean!
 }
 

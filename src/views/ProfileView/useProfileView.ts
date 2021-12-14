@@ -1,35 +1,99 @@
 /* eslint no-restricted-globals: ["error"] */
 import { useState, useRef, MouseEvent } from 'react';
 
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+
+import { accessTokenVar } from '#apollo/state';
 
 import {
-  useUpdateUserMutation,
-  useDeleteUserMutation,
-} from '#state/slices/api';
+  DeleteUserMutation,
+  DeleteUserMutationVariables,
+  GetAuthQuery,
+  UpdateUserMutation,
+  UpdateUserMutationVariables,
+  LogoutUserMutation,
+} from '#generated/types';
 
-import { GetAuthQuery } from '#generated/types';
-import { GET_AUTH } from '#apollo/operations';
+import {
+  GET_AUTH,
+  UPDATE_USER,
+  DELETE_USER,
+  LOGOUT_USER,
+} from '#apollo/operations';
 
 const formatDate = (date: string) => {
-  const inputDate = new Date(date);
+  const inputDate = date ? new Date(date) : new Date();
   return inputDate.toISOString().substr(0, 10);
 };
 
 const useProfileView = () => {
-  const [updateUser, { error: updateError }] = useUpdateUserMutation();
-  const [deleteUser, { error: deleteError }] = useDeleteUserMutation();
+  const [
+    updateUser,
+    { data: updateUserData, error: apolloUpdateError, reset: resetUpdateUser },
+  ] = useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
+    UPDATE_USER,
+    {
+      update: (cache, { data }) => {
+        // Only update cache if we had no errors
+        if (data?.updateUser?.errors.length) {
+          return;
+        }
+        cache.writeQuery({
+          query: GET_AUTH,
+          data: {
+            auth: {
+              user: data?.updateUser?.user,
+              isLoggedIn: true,
+            },
+          },
+        });
+      },
+    },
+  );
+
+  const [
+    deleteUser,
+    { data: deleteUserData, error: apolloDeleteError, reset: resetDeleteUser },
+  ] = useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DELETE_USER);
+
+  const [logoutUser] = useMutation<LogoutUserMutation>(LOGOUT_USER, {
+    onCompleted: () => {
+      accessTokenVar('');
+    },
+    update: (cache) => {
+      cache.writeQuery({
+        query: GET_AUTH,
+        data: {
+          auth: {
+            user: null,
+            jwtToken: '',
+            isLoggedIn: false,
+          },
+        },
+      });
+    },
+  });
 
   const { data: authData } = useQuery<GetAuthQuery>(GET_AUTH);
 
-  const currentUserData = authData?.auth?.user;
-
   const updateFormRef = useRef<HTMLFormElement>(null);
 
+  const currentUserData = authData?.auth?.user;
+
   const [newUserData, setNewUserData] = useState({
-    ...currentUserData,
+    username: currentUserData?.username || '',
+    email: currentUserData?.email || '',
+    birthday: currentUserData?.birthday || '',
     password: '',
   });
+
+  const updateErrorMessage = updateUserData?.updateUser?.errors[0]?.message;
+  const apolloUpdateErrorMessage = apolloUpdateError?.message;
+  const updateError = updateErrorMessage || apolloUpdateErrorMessage || '';
+
+  const deleteErrorMessage = deleteUserData?.deleteUser?.errors[0]?.message;
+  const apolloDeleteErrorMessage = apolloDeleteError?.message;
+  const deleteError = deleteErrorMessage || apolloDeleteErrorMessage || '';
 
   if (!currentUserData) {
     return null;
@@ -60,31 +124,44 @@ const useProfileView = () => {
     e.preventDefault();
 
     if (isUpdateFormInputValid()) {
-      await updateUser({ userId: currentUserData._id, newUserData });
+      resetUpdateUser();
+      await updateUser({
+        variables: {
+          userId: currentUserData._id,
+          newUserData,
+        },
+      });
       setPassword('');
     }
   };
 
   const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    resetDeleteUser();
     // eslint-disable-next-line no-alert
     const deletionConfirmed = confirm(
       'Do you really want to delete your account? This action is not reversible!',
     );
 
     if (deletionConfirmed) {
-      deleteUser(currentUserData._id);
+      const results = await deleteUser({
+        variables: { userId: currentUserData._id },
+      });
+
+      if (results.data?.deleteUser?.statusCode === 200) {
+        logoutUser();
+      }
     }
   };
 
-  const { username, email, password, birthday, favoriteMovies } = newUserData;
+  const { username, email, password, birthday } = newUserData;
 
   return {
     username,
     email,
     password,
     birthday,
-    favoriteMovies,
+    favoriteMovies: currentUserData.favoriteMovies,
     formatDate,
     handleSubmit,
     handleDelete,
