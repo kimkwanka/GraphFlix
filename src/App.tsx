@@ -1,11 +1,9 @@
 import { useEffect } from 'react';
 
-import { useLogoutUserMutation } from 'state/slices/api';
-
 import { useMutation } from '@apollo/client';
 
-import { SilentRefreshMutation } from '#generated/types';
-import { SILENT_REFRESH, GET_AUTH } from '#apollo/operations';
+import { SilentRefreshMutation, LogoutUserMutation } from '#generated/types';
+import { SILENT_REFRESH, GET_AUTH, LOGOUT_USER } from '#apollo/operations';
 
 import LoadingSpinner from '#components/LoadingSpinner/LoadingSpinner';
 import Header from '#components/Header/Header';
@@ -46,7 +44,23 @@ const App = () => {
       },
     },
   );
-  const [logoutUser] = useLogoutUserMutation();
+  const [logoutUser] = useMutation<LogoutUserMutation>(LOGOUT_USER, {
+    onCompleted: () => {
+      accessTokenVar('');
+    },
+    update: (cache) => {
+      cache.writeQuery({
+        query: GET_AUTH,
+        data: {
+          auth: {
+            user: null,
+            jwtToken: '',
+            isLoggedIn: false,
+          },
+        },
+      });
+    },
+  });
 
   useEffect(() => {
     // Try logging in silently on initial page load
