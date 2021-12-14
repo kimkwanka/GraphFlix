@@ -2,10 +2,7 @@ import ReactDOM from 'react-dom';
 
 import { BrowserRouter } from 'react-router-dom';
 
-import { Provider } from 'react-redux';
-
 import { ApolloProvider } from '@apollo/client';
-import store from '#state/store';
 
 import apolloClient from '#apollo/client';
 
@@ -19,11 +16,9 @@ if (!import.meta.env.VITE_MOVIE_API_URL) {
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store}>
-      <ApolloProvider client={apolloClient}>
-        <App />
-      </ApolloProvider>
-    </Provider>
+    <ApolloProvider client={apolloClient}>
+      <App />
+    </ApolloProvider>
   </BrowserRouter>,
   document.getElementById('root'),
 );

@@ -1,6 +1,14 @@
 import { useParams } from 'react-router-dom';
 
-import { useDiscoverMoviesQuery } from '#state/slices/api';
+import { useQuery } from '@apollo/client';
+
+import {
+  MoviePartsFragment,
+  DiscoverMoviesQuery,
+  DiscoverMoviesQueryVariables,
+} from '#generated/types';
+
+import { DISCOVER_MOVIES } from '#apollo/operations';
 
 import { useQueryParams } from '#hooks';
 
@@ -15,19 +23,25 @@ const GenreView = () => {
 
   const pageAsNumber = parseInt(queryParams.get('page') || '1', 10);
 
-  const { data } = useDiscoverMoviesQuery({
-    page: pageAsNumber,
-    with_genres: genreId,
-  });
+  const { data } = useQuery<DiscoverMoviesQuery, DiscoverMoviesQueryVariables>(
+    DISCOVER_MOVIES,
+    {
+      variables: {
+        options: {
+          page: pageAsNumber,
+        },
+      },
+    },
+  );
 
-  if (!data) {
+  if (!data?.discover) {
     return null;
   }
 
-  const { movies, totalPages, genreLookupTable } = data;
+  const { movies, totalPages } = data.discover;
 
-  const genreName = genreLookupTable
-    ? genreLookupTable[parseInt(genreId || '', 10)].name
+  const genreName = movies[0]
+    ? movies[0].genres[parseInt(genreId || '', 10)].name
     : '';
   return (
     <>
@@ -37,7 +51,7 @@ const GenreView = () => {
         initialPage={pageAsNumber}
         totalPages={totalPages}
       />
-      <MoviesList movies={movies} />
+      <MoviesList movies={movies as MoviePartsFragment[]} />
       <Pagination
         baseUrl={`/genres/${genreId}?`}
         initialPage={pageAsNumber}
