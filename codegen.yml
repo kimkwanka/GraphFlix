@@ -6,6 +6,11 @@ generates:
     plugins:
       - typescript
       - typescript-operations
+      - typescript-react-apollo
+  ./src/_generated/hooks.ts:
+    schema: ./src/apollo/client.schema.graphql
+    plugins:
+      - typescript-react-apollo
   ./src/_generated/fragment-matcher.ts:
     schema: ./src/apollo/client.schema.graphql
     plugins:
