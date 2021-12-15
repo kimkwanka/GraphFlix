@@ -1,11 +1,11 @@
-import { MoviePartsFragment } from '#generated/types';
+import { TmdbMovie } from '#generated/types';
 
 import MovieCard from '#components/MovieCard/MovieCard';
 
 import './MoviesList.scss';
 
 interface IMoviesListProps {
-  movies: MoviePartsFragment[];
+  movies: TmdbMovie[];
 }
 
 const MoviesList = ({ movies }: IMoviesListProps) => {

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { useQuery } from '@apollo/client';
 
-import { MoviePartsFragment, GetFavoriteMoviesQuery } from '#generated/types';
+import { TmdbMovie, GetFavoriteMoviesQuery } from '#generated/types';
 
 import { GET_FAVORITE_MOVIES } from '#apollo/operations';
 
@@ -12,7 +12,7 @@ import FavoriteButton from '#components/FavoriteButton/FavoriteButton';
 import './MovieModal.scss';
 
 interface MovieModalProps {
-  movie: MoviePartsFragment;
+  movie: TmdbMovie;
 }
 
 const MovieModal = ({ movie }: MovieModalProps) => {

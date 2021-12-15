@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import {
-  MoviePartsFragment,
+  TmdbMovie,
   DiscoverMoviesQuery,
   DiscoverMoviesQueryVariables,
 } from '#generated/types';
@@ -51,7 +51,7 @@ const GenreView = () => {
         initialPage={pageAsNumber}
         totalPages={totalPages}
       />
-      <MoviesList movies={movies as MoviePartsFragment[]} />
+      <MoviesList movies={movies as TmdbMovie[]} />
       <Pagination
         baseUrl={`/genres/${genreId}?`}
         initialPage={pageAsNumber}

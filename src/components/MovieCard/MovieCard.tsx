@@ -1,13 +1,13 @@
 import { memo } from 'react';
 
-import { MoviePartsFragment } from '#generated/types';
+import { TmdbMovie } from '#generated/types';
 
 import MovieModal from './MovieModal/MovieModal';
 
 import './MovieCard.scss';
 
 interface IMovieCardProps {
-  movie: MoviePartsFragment;
+  movie: TmdbMovie;
 }
 
 const MovieCard = ({ movie }: IMovieCardProps) => {

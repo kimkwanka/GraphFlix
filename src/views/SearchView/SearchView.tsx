@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 
 import {
-  MoviePartsFragment,
+  TmdbMovie,
   SearchMoviesQuery,
   SearchMoviesQueryVariables,
 } from '#generated/types';
@@ -47,7 +47,7 @@ const SearchView = () => {
         initialPage={pageAsNumber}
         totalPages={totalPages}
       />
-      <MoviesList movies={movies as MoviePartsFragment[]} />
+      <MoviesList movies={movies as TmdbMovie[]} />
       <Pagination
         baseUrl={`/search?query=${searchQuery}&`}
         initialPage={pageAsNumber}

@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 
 import {
-  MoviePartsFragment,
+  TmdbMovie,
   GetFavoriteMoviesQuery,
   GetManyMoviesByIdQuery,
   GetManyMoviesByIdQueryVariables,
@@ -29,7 +29,7 @@ const FavoriteMoviesList = () => {
   if (!getManyMoviesByIdData?.movies) {
     return null;
   }
-  const movies = getManyMoviesByIdData.movies.movies as MoviePartsFragment[];
+  const movies = getManyMoviesByIdData.movies.movies as TmdbMovie[];
 
   return (
     <div className="favorite-movies-list">
