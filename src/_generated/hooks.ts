@@ -1,3 +1,5 @@
+import * as Types from './types';
+
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
@@ -33,7 +35,7 @@ export const LoginUserDocument = gql`
   }
 }
     `;
-export type LoginUserMutationFn = Apollo.MutationFunction<LoginUserMutation, LoginUserMutationVariables>;
+export type LoginUserMutationFn = Apollo.MutationFunction<Types.LoginUserMutation, Types.LoginUserMutationVariables>;
 
 /**
  * __useLoginUserMutation__
@@ -53,13 +55,13 @@ export type LoginUserMutationFn = Apollo.MutationFunction<LoginUserMutation, Log
  *   },
  * });
  */
-export function useLoginUserMutation(baseOptions?: Apollo.MutationHookOptions<LoginUserMutation, LoginUserMutationVariables>) {
+export function useLoginUserMutation(baseOptions?: Apollo.MutationHookOptions<Types.LoginUserMutation, Types.LoginUserMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LoginUserMutation, LoginUserMutationVariables>(LoginUserDocument, options);
+        return Apollo.useMutation<Types.LoginUserMutation, Types.LoginUserMutationVariables>(LoginUserDocument, options);
       }
 export type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>;
-export type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>;
-export type LoginUserMutationOptions = Apollo.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>;
+export type LoginUserMutationResult = Apollo.MutationResult<Types.LoginUserMutation>;
+export type LoginUserMutationOptions = Apollo.BaseMutationOptions<Types.LoginUserMutation, Types.LoginUserMutationVariables>;
 export const SilentRefreshDocument = gql`
     mutation SilentRefresh {
   silentRefresh {
@@ -78,7 +80,7 @@ export const SilentRefreshDocument = gql`
   }
 }
     `;
-export type SilentRefreshMutationFn = Apollo.MutationFunction<SilentRefreshMutation, SilentRefreshMutationVariables>;
+export type SilentRefreshMutationFn = Apollo.MutationFunction<Types.SilentRefreshMutation, Types.SilentRefreshMutationVariables>;
 
 /**
  * __useSilentRefreshMutation__
@@ -96,13 +98,13 @@ export type SilentRefreshMutationFn = Apollo.MutationFunction<SilentRefreshMutat
  *   },
  * });
  */
-export function useSilentRefreshMutation(baseOptions?: Apollo.MutationHookOptions<SilentRefreshMutation, SilentRefreshMutationVariables>) {
+export function useSilentRefreshMutation(baseOptions?: Apollo.MutationHookOptions<Types.SilentRefreshMutation, Types.SilentRefreshMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<SilentRefreshMutation, SilentRefreshMutationVariables>(SilentRefreshDocument, options);
+        return Apollo.useMutation<Types.SilentRefreshMutation, Types.SilentRefreshMutationVariables>(SilentRefreshDocument, options);
       }
 export type SilentRefreshMutationHookResult = ReturnType<typeof useSilentRefreshMutation>;
-export type SilentRefreshMutationResult = Apollo.MutationResult<SilentRefreshMutation>;
-export type SilentRefreshMutationOptions = Apollo.BaseMutationOptions<SilentRefreshMutation, SilentRefreshMutationVariables>;
+export type SilentRefreshMutationResult = Apollo.MutationResult<Types.SilentRefreshMutation>;
+export type SilentRefreshMutationOptions = Apollo.BaseMutationOptions<Types.SilentRefreshMutation, Types.SilentRefreshMutationVariables>;
 export const LogoutUserDocument = gql`
     mutation LogoutUser {
   logoutUser {
@@ -113,7 +115,7 @@ export const LogoutUserDocument = gql`
   }
 }
     `;
-export type LogoutUserMutationFn = Apollo.MutationFunction<LogoutUserMutation, LogoutUserMutationVariables>;
+export type LogoutUserMutationFn = Apollo.MutationFunction<Types.LogoutUserMutation, Types.LogoutUserMutationVariables>;
 
 /**
  * __useLogoutUserMutation__
@@ -131,13 +133,13 @@ export type LogoutUserMutationFn = Apollo.MutationFunction<LogoutUserMutation, L
  *   },
  * });
  */
-export function useLogoutUserMutation(baseOptions?: Apollo.MutationHookOptions<LogoutUserMutation, LogoutUserMutationVariables>) {
+export function useLogoutUserMutation(baseOptions?: Apollo.MutationHookOptions<Types.LogoutUserMutation, Types.LogoutUserMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LogoutUserMutation, LogoutUserMutationVariables>(LogoutUserDocument, options);
+        return Apollo.useMutation<Types.LogoutUserMutation, Types.LogoutUserMutationVariables>(LogoutUserDocument, options);
       }
 export type LogoutUserMutationHookResult = ReturnType<typeof useLogoutUserMutation>;
-export type LogoutUserMutationResult = Apollo.MutationResult<LogoutUserMutation>;
-export type LogoutUserMutationOptions = Apollo.BaseMutationOptions<LogoutUserMutation, LogoutUserMutationVariables>;
+export type LogoutUserMutationResult = Apollo.MutationResult<Types.LogoutUserMutation>;
+export type LogoutUserMutationOptions = Apollo.BaseMutationOptions<Types.LogoutUserMutation, Types.LogoutUserMutationVariables>;
 export const RegisterUserDocument = gql`
     mutation RegisterUser($newUserData: UserInput!) {
   registerUser(newUserData: $newUserData) {
@@ -155,7 +157,7 @@ export const RegisterUserDocument = gql`
   }
 }
     `;
-export type RegisterUserMutationFn = Apollo.MutationFunction<RegisterUserMutation, RegisterUserMutationVariables>;
+export type RegisterUserMutationFn = Apollo.MutationFunction<Types.RegisterUserMutation, Types.RegisterUserMutationVariables>;
 
 /**
  * __useRegisterUserMutation__
@@ -174,13 +176,13 @@ export type RegisterUserMutationFn = Apollo.MutationFunction<RegisterUserMutatio
  *   },
  * });
  */
-export function useRegisterUserMutation(baseOptions?: Apollo.MutationHookOptions<RegisterUserMutation, RegisterUserMutationVariables>) {
+export function useRegisterUserMutation(baseOptions?: Apollo.MutationHookOptions<Types.RegisterUserMutation, Types.RegisterUserMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RegisterUserMutation, RegisterUserMutationVariables>(RegisterUserDocument, options);
+        return Apollo.useMutation<Types.RegisterUserMutation, Types.RegisterUserMutationVariables>(RegisterUserDocument, options);
       }
 export type RegisterUserMutationHookResult = ReturnType<typeof useRegisterUserMutation>;
-export type RegisterUserMutationResult = Apollo.MutationResult<RegisterUserMutation>;
-export type RegisterUserMutationOptions = Apollo.BaseMutationOptions<RegisterUserMutation, RegisterUserMutationVariables>;
+export type RegisterUserMutationResult = Apollo.MutationResult<Types.RegisterUserMutation>;
+export type RegisterUserMutationOptions = Apollo.BaseMutationOptions<Types.RegisterUserMutation, Types.RegisterUserMutationVariables>;
 export const UpdateUserDocument = gql`
     mutation UpdateUser($userId: ID!, $newUserData: UserInput!) {
   updateUser(userId: $userId, newUserData: $newUserData) {
@@ -198,7 +200,7 @@ export const UpdateUserDocument = gql`
   }
 }
     `;
-export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
+export type UpdateUserMutationFn = Apollo.MutationFunction<Types.UpdateUserMutation, Types.UpdateUserMutationVariables>;
 
 /**
  * __useUpdateUserMutation__
@@ -218,13 +220,13 @@ export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, U
  *   },
  * });
  */
-export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>) {
+export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<Types.UpdateUserMutation, Types.UpdateUserMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
+        return Apollo.useMutation<Types.UpdateUserMutation, Types.UpdateUserMutationVariables>(UpdateUserDocument, options);
       }
 export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
-export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
-export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
+export type UpdateUserMutationResult = Apollo.MutationResult<Types.UpdateUserMutation>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<Types.UpdateUserMutation, Types.UpdateUserMutationVariables>;
 export const DeleteUserDocument = gql`
     mutation DeleteUser($userId: ID!) {
   deleteUser(userId: $userId) {
@@ -238,7 +240,7 @@ export const DeleteUserDocument = gql`
   }
 }
     `;
-export type DeleteUserMutationFn = Apollo.MutationFunction<DeleteUserMutation, DeleteUserMutationVariables>;
+export type DeleteUserMutationFn = Apollo.MutationFunction<Types.DeleteUserMutation, Types.DeleteUserMutationVariables>;
 
 /**
  * __useDeleteUserMutation__
@@ -257,13 +259,13 @@ export type DeleteUserMutationFn = Apollo.MutationFunction<DeleteUserMutation, D
  *   },
  * });
  */
-export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<DeleteUserMutation, DeleteUserMutationVariables>) {
+export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<Types.DeleteUserMutation, Types.DeleteUserMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument, options);
+        return Apollo.useMutation<Types.DeleteUserMutation, Types.DeleteUserMutationVariables>(DeleteUserDocument, options);
       }
 export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
-export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
-export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
+export type DeleteUserMutationResult = Apollo.MutationResult<Types.DeleteUserMutation>;
+export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<Types.DeleteUserMutation, Types.DeleteUserMutationVariables>;
 export const AddFavoriteMovieToUserDocument = gql`
     mutation AddFavoriteMovieToUser($userId: ID!, $movieId: ID!) {
   addFavoriteMovieToUser(userId: $userId, movieId: $movieId) {
@@ -281,7 +283,7 @@ export const AddFavoriteMovieToUserDocument = gql`
   }
 }
     `;
-export type AddFavoriteMovieToUserMutationFn = Apollo.MutationFunction<AddFavoriteMovieToUserMutation, AddFavoriteMovieToUserMutationVariables>;
+export type AddFavoriteMovieToUserMutationFn = Apollo.MutationFunction<Types.AddFavoriteMovieToUserMutation, Types.AddFavoriteMovieToUserMutationVariables>;
 
 /**
  * __useAddFavoriteMovieToUserMutation__
@@ -301,13 +303,13 @@ export type AddFavoriteMovieToUserMutationFn = Apollo.MutationFunction<AddFavori
  *   },
  * });
  */
-export function useAddFavoriteMovieToUserMutation(baseOptions?: Apollo.MutationHookOptions<AddFavoriteMovieToUserMutation, AddFavoriteMovieToUserMutationVariables>) {
+export function useAddFavoriteMovieToUserMutation(baseOptions?: Apollo.MutationHookOptions<Types.AddFavoriteMovieToUserMutation, Types.AddFavoriteMovieToUserMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddFavoriteMovieToUserMutation, AddFavoriteMovieToUserMutationVariables>(AddFavoriteMovieToUserDocument, options);
+        return Apollo.useMutation<Types.AddFavoriteMovieToUserMutation, Types.AddFavoriteMovieToUserMutationVariables>(AddFavoriteMovieToUserDocument, options);
       }
 export type AddFavoriteMovieToUserMutationHookResult = ReturnType<typeof useAddFavoriteMovieToUserMutation>;
-export type AddFavoriteMovieToUserMutationResult = Apollo.MutationResult<AddFavoriteMovieToUserMutation>;
-export type AddFavoriteMovieToUserMutationOptions = Apollo.BaseMutationOptions<AddFavoriteMovieToUserMutation, AddFavoriteMovieToUserMutationVariables>;
+export type AddFavoriteMovieToUserMutationResult = Apollo.MutationResult<Types.AddFavoriteMovieToUserMutation>;
+export type AddFavoriteMovieToUserMutationOptions = Apollo.BaseMutationOptions<Types.AddFavoriteMovieToUserMutation, Types.AddFavoriteMovieToUserMutationVariables>;
 export const RemoveFavoriteMovieFromUserDocument = gql`
     mutation RemoveFavoriteMovieFromUser($userId: ID!, $movieId: ID!) {
   removeFavoriteMovieFromUser(userId: $userId, movieId: $movieId) {
@@ -325,7 +327,7 @@ export const RemoveFavoriteMovieFromUserDocument = gql`
   }
 }
     `;
-export type RemoveFavoriteMovieFromUserMutationFn = Apollo.MutationFunction<RemoveFavoriteMovieFromUserMutation, RemoveFavoriteMovieFromUserMutationVariables>;
+export type RemoveFavoriteMovieFromUserMutationFn = Apollo.MutationFunction<Types.RemoveFavoriteMovieFromUserMutation, Types.RemoveFavoriteMovieFromUserMutationVariables>;
 
 /**
  * __useRemoveFavoriteMovieFromUserMutation__
@@ -345,13 +347,13 @@ export type RemoveFavoriteMovieFromUserMutationFn = Apollo.MutationFunction<Remo
  *   },
  * });
  */
-export function useRemoveFavoriteMovieFromUserMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFavoriteMovieFromUserMutation, RemoveFavoriteMovieFromUserMutationVariables>) {
+export function useRemoveFavoriteMovieFromUserMutation(baseOptions?: Apollo.MutationHookOptions<Types.RemoveFavoriteMovieFromUserMutation, Types.RemoveFavoriteMovieFromUserMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RemoveFavoriteMovieFromUserMutation, RemoveFavoriteMovieFromUserMutationVariables>(RemoveFavoriteMovieFromUserDocument, options);
+        return Apollo.useMutation<Types.RemoveFavoriteMovieFromUserMutation, Types.RemoveFavoriteMovieFromUserMutationVariables>(RemoveFavoriteMovieFromUserDocument, options);
       }
 export type RemoveFavoriteMovieFromUserMutationHookResult = ReturnType<typeof useRemoveFavoriteMovieFromUserMutation>;
-export type RemoveFavoriteMovieFromUserMutationResult = Apollo.MutationResult<RemoveFavoriteMovieFromUserMutation>;
-export type RemoveFavoriteMovieFromUserMutationOptions = Apollo.BaseMutationOptions<RemoveFavoriteMovieFromUserMutation, RemoveFavoriteMovieFromUserMutationVariables>;
+export type RemoveFavoriteMovieFromUserMutationResult = Apollo.MutationResult<Types.RemoveFavoriteMovieFromUserMutation>;
+export type RemoveFavoriteMovieFromUserMutationOptions = Apollo.BaseMutationOptions<Types.RemoveFavoriteMovieFromUserMutation, Types.RemoveFavoriteMovieFromUserMutationVariables>;
 export const DiscoverMoviesDocument = gql`
     query DiscoverMovies($options: DiscoverOptions!) {
   discover(options: $options) {
@@ -379,17 +381,17 @@ export const DiscoverMoviesDocument = gql`
  *   },
  * });
  */
-export function useDiscoverMoviesQuery(baseOptions: Apollo.QueryHookOptions<DiscoverMoviesQuery, DiscoverMoviesQueryVariables>) {
+export function useDiscoverMoviesQuery(baseOptions: Apollo.QueryHookOptions<Types.DiscoverMoviesQuery, Types.DiscoverMoviesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<DiscoverMoviesQuery, DiscoverMoviesQueryVariables>(DiscoverMoviesDocument, options);
+        return Apollo.useQuery<Types.DiscoverMoviesQuery, Types.DiscoverMoviesQueryVariables>(DiscoverMoviesDocument, options);
       }
-export function useDiscoverMoviesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DiscoverMoviesQuery, DiscoverMoviesQueryVariables>) {
+export function useDiscoverMoviesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.DiscoverMoviesQuery, Types.DiscoverMoviesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<DiscoverMoviesQuery, DiscoverMoviesQueryVariables>(DiscoverMoviesDocument, options);
+          return Apollo.useLazyQuery<Types.DiscoverMoviesQuery, Types.DiscoverMoviesQueryVariables>(DiscoverMoviesDocument, options);
         }
 export type DiscoverMoviesQueryHookResult = ReturnType<typeof useDiscoverMoviesQuery>;
 export type DiscoverMoviesLazyQueryHookResult = ReturnType<typeof useDiscoverMoviesLazyQuery>;
-export type DiscoverMoviesQueryResult = Apollo.QueryResult<DiscoverMoviesQuery, DiscoverMoviesQueryVariables>;
+export type DiscoverMoviesQueryResult = Apollo.QueryResult<Types.DiscoverMoviesQuery, Types.DiscoverMoviesQueryVariables>;
 export const SearchMoviesDocument = gql`
     query SearchMovies($query: String!, $page: Int) {
   search(query: $query, page: $page) {
@@ -419,17 +421,17 @@ export const SearchMoviesDocument = gql`
  *   },
  * });
  */
-export function useSearchMoviesQuery(baseOptions: Apollo.QueryHookOptions<SearchMoviesQuery, SearchMoviesQueryVariables>) {
+export function useSearchMoviesQuery(baseOptions: Apollo.QueryHookOptions<Types.SearchMoviesQuery, Types.SearchMoviesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<SearchMoviesQuery, SearchMoviesQueryVariables>(SearchMoviesDocument, options);
+        return Apollo.useQuery<Types.SearchMoviesQuery, Types.SearchMoviesQueryVariables>(SearchMoviesDocument, options);
       }
-export function useSearchMoviesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchMoviesQuery, SearchMoviesQueryVariables>) {
+export function useSearchMoviesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.SearchMoviesQuery, Types.SearchMoviesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<SearchMoviesQuery, SearchMoviesQueryVariables>(SearchMoviesDocument, options);
+          return Apollo.useLazyQuery<Types.SearchMoviesQuery, Types.SearchMoviesQueryVariables>(SearchMoviesDocument, options);
         }
 export type SearchMoviesQueryHookResult = ReturnType<typeof useSearchMoviesQuery>;
 export type SearchMoviesLazyQueryHookResult = ReturnType<typeof useSearchMoviesLazyQuery>;
-export type SearchMoviesQueryResult = Apollo.QueryResult<SearchMoviesQuery, SearchMoviesQueryVariables>;
+export type SearchMoviesQueryResult = Apollo.QueryResult<Types.SearchMoviesQuery, Types.SearchMoviesQueryVariables>;
 export const GetMovieByIdDocument = gql`
     query GetMovieById($movieId: String!) {
   movie(movieId: $movieId) {
@@ -463,17 +465,17 @@ export const GetMovieByIdDocument = gql`
  *   },
  * });
  */
-export function useGetMovieByIdQuery(baseOptions: Apollo.QueryHookOptions<GetMovieByIdQuery, GetMovieByIdQueryVariables>) {
+export function useGetMovieByIdQuery(baseOptions: Apollo.QueryHookOptions<Types.GetMovieByIdQuery, Types.GetMovieByIdQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMovieByIdQuery, GetMovieByIdQueryVariables>(GetMovieByIdDocument, options);
+        return Apollo.useQuery<Types.GetMovieByIdQuery, Types.GetMovieByIdQueryVariables>(GetMovieByIdDocument, options);
       }
-export function useGetMovieByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMovieByIdQuery, GetMovieByIdQueryVariables>) {
+export function useGetMovieByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetMovieByIdQuery, Types.GetMovieByIdQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMovieByIdQuery, GetMovieByIdQueryVariables>(GetMovieByIdDocument, options);
+          return Apollo.useLazyQuery<Types.GetMovieByIdQuery, Types.GetMovieByIdQueryVariables>(GetMovieByIdDocument, options);
         }
 export type GetMovieByIdQueryHookResult = ReturnType<typeof useGetMovieByIdQuery>;
 export type GetMovieByIdLazyQueryHookResult = ReturnType<typeof useGetMovieByIdLazyQuery>;
-export type GetMovieByIdQueryResult = Apollo.QueryResult<GetMovieByIdQuery, GetMovieByIdQueryVariables>;
+export type GetMovieByIdQueryResult = Apollo.QueryResult<Types.GetMovieByIdQuery, Types.GetMovieByIdQueryVariables>;
 export const GetManyMoviesByIdDocument = gql`
     query GetManyMoviesById($movieIds: [String!]!) {
   movies(movieIds: $movieIds) {
@@ -502,17 +504,17 @@ export const GetManyMoviesByIdDocument = gql`
  *   },
  * });
  */
-export function useGetManyMoviesByIdQuery(baseOptions: Apollo.QueryHookOptions<GetManyMoviesByIdQuery, GetManyMoviesByIdQueryVariables>) {
+export function useGetManyMoviesByIdQuery(baseOptions: Apollo.QueryHookOptions<Types.GetManyMoviesByIdQuery, Types.GetManyMoviesByIdQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetManyMoviesByIdQuery, GetManyMoviesByIdQueryVariables>(GetManyMoviesByIdDocument, options);
+        return Apollo.useQuery<Types.GetManyMoviesByIdQuery, Types.GetManyMoviesByIdQueryVariables>(GetManyMoviesByIdDocument, options);
       }
-export function useGetManyMoviesByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetManyMoviesByIdQuery, GetManyMoviesByIdQueryVariables>) {
+export function useGetManyMoviesByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetManyMoviesByIdQuery, Types.GetManyMoviesByIdQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetManyMoviesByIdQuery, GetManyMoviesByIdQueryVariables>(GetManyMoviesByIdDocument, options);
+          return Apollo.useLazyQuery<Types.GetManyMoviesByIdQuery, Types.GetManyMoviesByIdQueryVariables>(GetManyMoviesByIdDocument, options);
         }
 export type GetManyMoviesByIdQueryHookResult = ReturnType<typeof useGetManyMoviesByIdQuery>;
 export type GetManyMoviesByIdLazyQueryHookResult = ReturnType<typeof useGetManyMoviesByIdLazyQuery>;
-export type GetManyMoviesByIdQueryResult = Apollo.QueryResult<GetManyMoviesByIdQuery, GetManyMoviesByIdQueryVariables>;
+export type GetManyMoviesByIdQueryResult = Apollo.QueryResult<Types.GetManyMoviesByIdQuery, Types.GetManyMoviesByIdQueryVariables>;
 export const GetAuthDocument = gql`
     query GetAuth {
   auth @client {
@@ -543,17 +545,17 @@ export const GetAuthDocument = gql`
  *   },
  * });
  */
-export function useGetAuthQuery(baseOptions?: Apollo.QueryHookOptions<GetAuthQuery, GetAuthQueryVariables>) {
+export function useGetAuthQuery(baseOptions?: Apollo.QueryHookOptions<Types.GetAuthQuery, Types.GetAuthQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAuthQuery, GetAuthQueryVariables>(GetAuthDocument, options);
+        return Apollo.useQuery<Types.GetAuthQuery, Types.GetAuthQueryVariables>(GetAuthDocument, options);
       }
-export function useGetAuthLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAuthQuery, GetAuthQueryVariables>) {
+export function useGetAuthLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetAuthQuery, Types.GetAuthQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAuthQuery, GetAuthQueryVariables>(GetAuthDocument, options);
+          return Apollo.useLazyQuery<Types.GetAuthQuery, Types.GetAuthQueryVariables>(GetAuthDocument, options);
         }
 export type GetAuthQueryHookResult = ReturnType<typeof useGetAuthQuery>;
 export type GetAuthLazyQueryHookResult = ReturnType<typeof useGetAuthLazyQuery>;
-export type GetAuthQueryResult = Apollo.QueryResult<GetAuthQuery, GetAuthQueryVariables>;
+export type GetAuthQueryResult = Apollo.QueryResult<Types.GetAuthQuery, Types.GetAuthQueryVariables>;
 export const GetFavoriteMoviesDocument = gql`
     query GetFavoriteMovies {
   auth @client {
@@ -579,17 +581,17 @@ export const GetFavoriteMoviesDocument = gql`
  *   },
  * });
  */
-export function useGetFavoriteMoviesQuery(baseOptions?: Apollo.QueryHookOptions<GetFavoriteMoviesQuery, GetFavoriteMoviesQueryVariables>) {
+export function useGetFavoriteMoviesQuery(baseOptions?: Apollo.QueryHookOptions<Types.GetFavoriteMoviesQuery, Types.GetFavoriteMoviesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetFavoriteMoviesQuery, GetFavoriteMoviesQueryVariables>(GetFavoriteMoviesDocument, options);
+        return Apollo.useQuery<Types.GetFavoriteMoviesQuery, Types.GetFavoriteMoviesQueryVariables>(GetFavoriteMoviesDocument, options);
       }
-export function useGetFavoriteMoviesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFavoriteMoviesQuery, GetFavoriteMoviesQueryVariables>) {
+export function useGetFavoriteMoviesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetFavoriteMoviesQuery, Types.GetFavoriteMoviesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetFavoriteMoviesQuery, GetFavoriteMoviesQueryVariables>(GetFavoriteMoviesDocument, options);
+          return Apollo.useLazyQuery<Types.GetFavoriteMoviesQuery, Types.GetFavoriteMoviesQueryVariables>(GetFavoriteMoviesDocument, options);
         }
 export type GetFavoriteMoviesQueryHookResult = ReturnType<typeof useGetFavoriteMoviesQuery>;
 export type GetFavoriteMoviesLazyQueryHookResult = ReturnType<typeof useGetFavoriteMoviesLazyQuery>;
-export type GetFavoriteMoviesQueryResult = Apollo.QueryResult<GetFavoriteMoviesQuery, GetFavoriteMoviesQueryVariables>;
+export type GetFavoriteMoviesQueryResult = Apollo.QueryResult<Types.GetFavoriteMoviesQuery, Types.GetFavoriteMoviesQueryVariables>;
 export const GetIsLoggedInDocument = gql`
     query GetIsLoggedIn {
   auth @client {
@@ -613,14 +615,14 @@ export const GetIsLoggedInDocument = gql`
  *   },
  * });
  */
-export function useGetIsLoggedInQuery(baseOptions?: Apollo.QueryHookOptions<GetIsLoggedInQuery, GetIsLoggedInQueryVariables>) {
+export function useGetIsLoggedInQuery(baseOptions?: Apollo.QueryHookOptions<Types.GetIsLoggedInQuery, Types.GetIsLoggedInQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetIsLoggedInQuery, GetIsLoggedInQueryVariables>(GetIsLoggedInDocument, options);
+        return Apollo.useQuery<Types.GetIsLoggedInQuery, Types.GetIsLoggedInQueryVariables>(GetIsLoggedInDocument, options);
       }
-export function useGetIsLoggedInLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetIsLoggedInQuery, GetIsLoggedInQueryVariables>) {
+export function useGetIsLoggedInLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetIsLoggedInQuery, Types.GetIsLoggedInQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetIsLoggedInQuery, GetIsLoggedInQueryVariables>(GetIsLoggedInDocument, options);
+          return Apollo.useLazyQuery<Types.GetIsLoggedInQuery, Types.GetIsLoggedInQueryVariables>(GetIsLoggedInDocument, options);
         }
 export type GetIsLoggedInQueryHookResult = ReturnType<typeof useGetIsLoggedInQuery>;
 export type GetIsLoggedInLazyQueryHookResult = ReturnType<typeof useGetIsLoggedInLazyQuery>;
-export type GetIsLoggedInQueryResult = Apollo.QueryResult<GetIsLoggedInQuery, GetIsLoggedInQueryVariables>;
+export type GetIsLoggedInQueryResult = Apollo.QueryResult<Types.GetIsLoggedInQuery, Types.GetIsLoggedInQueryVariables>;
