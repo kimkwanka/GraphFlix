@@ -45,7 +45,7 @@ const LoginView = () => {
         <button type="submit" onClick={handleSubmit} disabled={isDisabled}>
           Sign In
         </button>
-        <ErrorMessages errors={[loginError]} />
+        <ErrorMessages errors={loginError ? [loginError] : []} />
       </form>
       <p>
         Don’t have an account?&nbsp;

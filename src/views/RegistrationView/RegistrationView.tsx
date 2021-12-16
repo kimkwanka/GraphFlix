@@ -76,7 +76,7 @@ const RegistrationView = () => {
         <button type="submit" onClick={handleSubmit} disabled={isDisabled}>
           Sign Up
         </button>
-        <ErrorMessages errors={[registerError]} />
+        <ErrorMessages errors={registerError ? [registerError] : []} />
       </form>
       <p>
         Already have an account?&nbsp;
