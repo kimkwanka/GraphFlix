@@ -1,20 +1,12 @@
 import { memo, MouseEvent } from 'react';
 
-import { useMutation, useQuery } from '@apollo/client';
-
 import {
-  GetAuthQuery,
-  AddFavoriteMovieToUserMutation,
-  AddFavoriteMovieToUserMutationVariables,
-  RemoveFavoriteMovieFromUserMutation,
-  RemoveFavoriteMovieFromUserMutationVariables,
-} from '#generated/types';
+  useAddFavoriteMovieToUserMutation,
+  useGetAuthQuery,
+  useRemoveFavoriteMovieFromUserMutation,
+} from '#generated/hooks';
 
-import {
-  ADD_MOVIE_TO_FAVORITES,
-  GET_AUTH,
-  REMOVE_MOVIE_FROM_FAVORITES,
-} from '#apollo/operations';
+import { GET_AUTH } from '#apollo/operations';
 
 import './FavoriteButton.scss';
 
@@ -29,10 +21,7 @@ const FavoriteButton = ({ movieId, showText, clear }: IFavoriteButtonProps) => {
     return null;
   }
 
-  const [addMovieToFavorites] = useMutation<
-    AddFavoriteMovieToUserMutation,
-    AddFavoriteMovieToUserMutationVariables
-  >(ADD_MOVIE_TO_FAVORITES, {
+  const [addMovieToFavorites] = useAddFavoriteMovieToUserMutation({
     update: (cache, { data }) => {
       // Only update cache if we had no errors
       if (data?.addFavoriteMovieToUser?.errors.length) {
@@ -50,10 +39,7 @@ const FavoriteButton = ({ movieId, showText, clear }: IFavoriteButtonProps) => {
     },
   });
 
-  const [removeMovieFromFavorites] = useMutation<
-    RemoveFavoriteMovieFromUserMutation,
-    RemoveFavoriteMovieFromUserMutationVariables
-  >(REMOVE_MOVIE_FROM_FAVORITES, {
+  const [removeMovieFromFavorites] = useRemoveFavoriteMovieFromUserMutation({
     update: (cache, { data }) => {
       // Only update cache if we had no errors
       if (data?.removeFavoriteMovieFromUser?.errors.length) {
@@ -71,7 +57,7 @@ const FavoriteButton = ({ movieId, showText, clear }: IFavoriteButtonProps) => {
     },
   });
 
-  const { data } = useQuery<GetAuthQuery>(GET_AUTH);
+  const { data } = useGetAuthQuery();
 
   if (!data?.auth?.user) {
     return null;

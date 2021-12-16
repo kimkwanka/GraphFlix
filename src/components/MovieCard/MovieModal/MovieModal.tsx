@@ -1,11 +1,8 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useQuery } from '@apollo/client';
-
-import { TmdbMovie, GetFavoriteMoviesQuery } from '#generated/types';
-
-import { GET_FAVORITE_MOVIES } from '#apollo/operations';
+import { useGetFavoriteMoviesQuery } from '#generated/hooks';
+import { TmdbMovie } from '#generated/types';
 
 import FavoriteButton from '#components/FavoriteButton/FavoriteButton';
 
@@ -16,7 +13,7 @@ interface MovieModalProps {
 }
 
 const MovieModal = ({ movie }: MovieModalProps) => {
-  const { data } = useQuery<GetFavoriteMoviesQuery>(GET_FAVORITE_MOVIES);
+  const { data } = useGetFavoriteMoviesQuery();
 
   const favoriteMovies = data?.auth?.user.favoriteMovies || [];
   const isFavorite = favoriteMovies.indexOf(movie.id) !== -1;

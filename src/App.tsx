@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 
-import { useMutation } from '@apollo/client';
+import { GET_AUTH } from '#apollo/operations';
 
-import { SilentRefreshMutation, LogoutUserMutation } from '#generated/types';
-import { SILENT_REFRESH, GET_AUTH, LOGOUT_USER } from '#apollo/operations';
+import {
+  useSilentRefreshMutation,
+  useLogoutUserMutation,
+} from '#generated/hooks';
 
 import LoadingSpinner from '#components/LoadingSpinner/LoadingSpinner';
 import Header from '#components/Header/Header';
@@ -20,31 +22,28 @@ import { accessTokenVar } from '#apollo/state';
 let firstRender = true;
 
 const App = () => {
-  const [silentLogin, { loading }] = useMutation<SilentRefreshMutation>(
-    SILENT_REFRESH,
-    {
-      onCompleted: (data) => {
-        accessTokenVar(data?.silentRefresh?.jwtToken || '');
-      },
-      update: (cache, { data }) => {
-        // Only login if we had no errors
-        if (data?.silentRefresh?.errors.length) {
-          return;
-        }
-        cache.writeQuery({
-          query: GET_AUTH,
-          data: {
-            auth: {
-              user: data?.silentRefresh?.user,
-              jwtToken: data?.silentRefresh?.jwtToken,
-              isLoggedIn: true,
-            },
-          },
-        });
-      },
+  const [silentLogin, { loading }] = useSilentRefreshMutation({
+    onCompleted: (data) => {
+      accessTokenVar(data?.silentRefresh?.jwtToken || '');
     },
-  );
-  const [logoutUser] = useMutation<LogoutUserMutation>(LOGOUT_USER, {
+    update: (cache, { data }) => {
+      // Only login if we had no errors
+      if (data?.silentRefresh?.errors.length) {
+        return;
+      }
+      cache.writeQuery({
+        query: GET_AUTH,
+        data: {
+          auth: {
+            user: data?.silentRefresh?.user,
+            jwtToken: data?.silentRefresh?.jwtToken,
+            isLoggedIn: true,
+          },
+        },
+      });
+    },
+  });
+  const [logoutUser] = useLogoutUserMutation({
     onCompleted: () => {
       accessTokenVar('');
     },

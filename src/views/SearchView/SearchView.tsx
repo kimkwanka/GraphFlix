@@ -1,11 +1,5 @@
-import { useQuery } from '@apollo/client';
-
-import {
-  TmdbMovie,
-  SearchMoviesQuery,
-  SearchMoviesQueryVariables,
-} from '#generated/types';
-import { SEARCH_MOVIES } from '#apollo/operations';
+import { useSearchMoviesQuery } from '#generated/hooks';
+import { TmdbMovie } from '#generated/types';
 
 import { useQueryParams } from '#hooks';
 
@@ -20,15 +14,12 @@ const SearchView = () => {
   const pageAsNumber = parseInt(queryParams.get('page') || '1', 10);
   const searchQuery = queryParams.get('query') || '';
 
-  const { data } = useQuery<SearchMoviesQuery, SearchMoviesQueryVariables>(
-    SEARCH_MOVIES,
-    {
-      variables: {
-        query: searchQuery,
-        page: pageAsNumber,
-      },
+  const { data } = useSearchMoviesQuery({
+    variables: {
+      query: searchQuery,
+      page: pageAsNumber,
     },
-  );
+  });
 
   if (!data?.search) {
     return null;

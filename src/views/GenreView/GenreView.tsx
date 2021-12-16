@@ -1,14 +1,7 @@
 import { useParams } from 'react-router-dom';
 
-import { useQuery } from '@apollo/client';
-
-import {
-  TmdbMovie,
-  DiscoverMoviesQuery,
-  DiscoverMoviesQueryVariables,
-} from '#generated/types';
-
-import { DISCOVER_MOVIES } from '#apollo/operations';
+import { useDiscoverMoviesQuery } from '#generated/hooks';
+import { TmdbMovie } from '#generated/types';
 
 import { useQueryParams } from '#hooks';
 
@@ -23,16 +16,13 @@ const GenreView = () => {
 
   const pageAsNumber = parseInt(queryParams.get('page') || '1', 10);
 
-  const { data } = useQuery<DiscoverMoviesQuery, DiscoverMoviesQueryVariables>(
-    DISCOVER_MOVIES,
-    {
-      variables: {
-        options: {
-          page: pageAsNumber,
-        },
+  const { data } = useDiscoverMoviesQuery({
+    variables: {
+      options: {
+        page: pageAsNumber,
       },
     },
-  );
+  });
 
   if (!data?.discover) {
     return null;

@@ -1,9 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { useQuery } from '@apollo/client';
-
-import { GetIsLoggedInQuery } from '#generated/types';
-import { GET_IS_LOGGED_IN } from '#apollo/operations';
+import { useGetAuthQuery } from '#generated/hooks';
 
 import LoginView from '#views/LoginView/LoginView';
 import RegistrationView from '#views/RegistrationView/RegistrationView';
@@ -18,7 +15,7 @@ interface IRoutesProps {
 }
 
 const AppRoutes = ({ silentLoginPending }: IRoutesProps) => {
-  const { data } = useQuery<GetIsLoggedInQuery>(GET_IS_LOGGED_IN);
+  const { data } = useGetAuthQuery();
 
   const isLoggedIn = data?.auth?.isLoggedIn || false;
 

@@ -1,14 +1,9 @@
 import { Link, useParams } from 'react-router-dom';
 
-import { useQuery } from '@apollo/client';
-
 import {
-  GetMovieByIdQuery,
-  GetMovieByIdQueryVariables,
-  GetFavoriteMoviesQuery,
-} from '#generated/types';
-
-import { GET_MOVIE_BY_ID, GET_FAVORITE_MOVIES } from '#apollo/operations';
+  useGetMovieByIdQuery,
+  useGetFavoriteMoviesQuery,
+} from '#generated/hooks';
 
 import FavoriteButton from '#components/FavoriteButton/FavoriteButton';
 
@@ -17,16 +12,13 @@ import './MovieView.scss';
 const MovieView = () => {
   const { movieId } = useParams();
 
-  const { data: movieData } = useQuery<
-    GetMovieByIdQuery,
-    GetMovieByIdQueryVariables
-  >(GET_MOVIE_BY_ID, {
+  const { data: movieData } = useGetMovieByIdQuery({
     variables: {
       movieId: movieId || '',
     },
   });
 
-  const { data } = useQuery<GetFavoriteMoviesQuery>(GET_FAVORITE_MOVIES);
+  const { data } = useGetFavoriteMoviesQuery();
 
   if (!movieData) {
     return null;

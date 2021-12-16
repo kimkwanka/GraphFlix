@@ -1,21 +1,15 @@
 import { useState, useRef, MouseEvent } from 'react';
 
-import { useMutation } from '@apollo/client';
-
-import {
-  LoginUserMutation,
-  LoginUserMutationVariables,
-} from '#generated/types';
-
-import { LOGIN_USER, GET_AUTH } from '#apollo/operations';
-
+import { GET_AUTH } from '#apollo/operations';
 import { accessTokenVar } from '#apollo/state';
+
+import { useLoginUserMutation } from '#generated/hooks';
 
 const useLoginView = () => {
   const [
     loginUser,
     { data: loginData, error: apolloError, reset: resetLoginUser },
-  ] = useMutation<LoginUserMutation, LoginUserMutationVariables>(LOGIN_USER, {
+  ] = useLoginUserMutation({
     onCompleted: (data) => {
       accessTokenVar(data?.loginUser?.jwtToken || '');
     },

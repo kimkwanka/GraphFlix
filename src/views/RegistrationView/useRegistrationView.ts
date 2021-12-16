@@ -1,21 +1,12 @@
 import { useState, useRef, MouseEvent } from 'react';
 
-import { useMutation } from '@apollo/client';
-
-import {
-  RegisterUserMutation,
-  RegisterUserMutationVariables,
-} from '#generated/types';
-
-import { REGISTER_USER } from '#apollo/operations';
+import { useRegisterUserMutation } from '#generated/hooks';
 
 const RegistrationView = () => {
   const [
     registerUser,
     { data: registerData, error: apolloError, reset: resetRegisterUser },
-  ] = useMutation<RegisterUserMutation, RegisterUserMutationVariables>(
-    REGISTER_USER,
-  );
+  ] = useRegisterUserMutation();
 
   const registerErrorMessage = registerData?.registerUser?.errors[0]?.message;
   const apolloErrorMessage = apolloError?.message;

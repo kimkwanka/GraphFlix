@@ -1,25 +1,16 @@
 /* eslint no-restricted-globals: ["error"] */
 import { useState, useRef, MouseEvent } from 'react';
 
-import { useMutation, useQuery } from '@apollo/client';
-
 import { accessTokenVar } from '#apollo/state';
 
 import {
-  DeleteUserMutation,
-  DeleteUserMutationVariables,
-  GetAuthQuery,
-  UpdateUserMutation,
-  UpdateUserMutationVariables,
-  LogoutUserMutation,
-} from '#generated/types';
+  useDeleteUserMutation,
+  useGetAuthQuery,
+  useLogoutUserMutation,
+  useUpdateUserMutation,
+} from '#generated/hooks';
 
-import {
-  GET_AUTH,
-  UPDATE_USER,
-  DELETE_USER,
-  LOGOUT_USER,
-} from '#apollo/operations';
+import { GET_AUTH } from '#apollo/operations';
 
 const formatDate = (date: string) => {
   const inputDate = date ? new Date(date) : new Date();
@@ -30,33 +21,30 @@ const useProfileView = () => {
   const [
     updateUser,
     { data: updateUserData, error: apolloUpdateError, reset: resetUpdateUser },
-  ] = useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
-    UPDATE_USER,
-    {
-      update: (cache, { data }) => {
-        // Only update cache if we had no errors
-        if (data?.updateUser?.errors.length) {
-          return;
-        }
-        cache.writeQuery({
-          query: GET_AUTH,
-          data: {
-            auth: {
-              user: data?.updateUser?.user,
-              isLoggedIn: true,
-            },
+  ] = useUpdateUserMutation({
+    update: (cache, { data }) => {
+      // Only update cache if we had no errors
+      if (data?.updateUser?.errors.length) {
+        return;
+      }
+      cache.writeQuery({
+        query: GET_AUTH,
+        data: {
+          auth: {
+            user: data?.updateUser?.user,
+            isLoggedIn: true,
           },
-        });
-      },
+        },
+      });
     },
-  );
+  });
 
   const [
     deleteUser,
     { data: deleteUserData, error: apolloDeleteError, reset: resetDeleteUser },
-  ] = useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DELETE_USER);
+  ] = useDeleteUserMutation();
 
-  const [logoutUser] = useMutation<LogoutUserMutation>(LOGOUT_USER, {
+  const [logoutUser] = useLogoutUserMutation({
     onCompleted: () => {
       accessTokenVar('');
     },
@@ -74,7 +62,7 @@ const useProfileView = () => {
     },
   });
 
-  const { data: authData } = useQuery<GetAuthQuery>(GET_AUTH);
+  const { data: authData } = useGetAuthQuery();
 
   const updateFormRef = useRef<HTMLFormElement>(null);
 
