@@ -1,9 +1,5 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 
-const { pathsToModuleNameMapper } = require('ts-jest')
-// In the following statement, replace `./tsconfig` with the path to your `tsconfig` file
-// which contains the path mapping (ie the `compilerOptions.paths` option):
-const { compilerOptions } = require('./tsconfig.json')
 
 module.exports = {
   preset: 'ts-jest',
@@ -16,4 +12,5 @@ module.exports = {
     '^#views/(.*)$': '<rootDir>/src/views/$1',
     '\\.(css|scss)$': '<rootDir>/jest/style.mock.ts',
   },
+  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/_generated/*.{ts,tsx}'],
 };
