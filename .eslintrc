@@ -42,5 +42,5 @@
       }
     }
   },
-  "ignorePatterns": ["src/_generated/*.ts"]
+  "ignorePatterns": ["src/_generated/*.ts", "jest.config.js"]
 }
