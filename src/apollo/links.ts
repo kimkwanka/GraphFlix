@@ -8,7 +8,7 @@ import { accessTokenVar, isRequestPending } from '#apollo/state';
 let tokenRefreshPromise: Promise<void> | null = null;
 
 const silentRefresh = () =>
-  fetch(`${import.meta.env.VITE_MOVIE_API_URL as string}/graphql`, {
+  fetch(`${process.env.VITE_MOVIE_API_URL as string}/graphql`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -70,6 +70,6 @@ export const authLink = setContext((_, { headers }) => {
 });
 
 export const httpLink = createHttpLink({
-  uri: `${import.meta.env.VITE_MOVIE_API_URL as string}/graphql`,
+  uri: `${process.env.VITE_MOVIE_API_URL as string}/graphql`,
   credentials: 'include',
 });
