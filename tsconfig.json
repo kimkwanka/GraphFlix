@@ -21,7 +21,8 @@
       "#generated/*": ["_generated/*"],
       "#hooks": ["hooks"],
       "#views/*": ["views/*"]
-    }
+    },
+    "types": ["jest", "@testing-library/cypress"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

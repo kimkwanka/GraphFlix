@@ -1,6 +1,5 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 
-
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-jsdom',
@@ -13,4 +12,5 @@ module.exports = {
     '\\.(css|scss)$': '<rootDir>/jest/style.mock.ts',
   },
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/_generated/*.{ts,tsx}'],
+  testPathIgnorePatterns: ['<rootDir>/cypress/'],
 };
