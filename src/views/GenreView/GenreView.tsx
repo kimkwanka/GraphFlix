@@ -20,6 +20,7 @@ const GenreView = () => {
     variables: {
       options: {
         page: pageAsNumber,
+        with_genres: genreId,
       },
     },
   });
@@ -30,9 +31,10 @@ const GenreView = () => {
 
   const { movies, totalPages } = data.discover;
 
-  const genreName = movies[0]
-    ? movies[0].genres[parseInt(genreId || '', 10)].name
-    : '';
+  const genreName =
+    movies?.[0]?.genres.find((genre) => genre.id.toString() === genreId)
+      ?.name || '';
+
   return (
     <>
       <h1 className="genre-heading">{genreName} Movies</h1>
